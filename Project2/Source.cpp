@@ -58,6 +58,8 @@ Computer MyComputer;
 const float s = MyComputer.s;
 const int ground_y = MyComputer.ground_y;
 
+bool firstPerson = true;
+
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
@@ -108,19 +110,6 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
-	glEnable(GL_TEXTURE_2D);
-	//draw everything with texture here
-
-	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
-	MyComputer.Draw_ground(0, ground_y, 0, 26 * s, 26 * s, 26 * s);
-	FirstPersonCamera(keys, 0.4,s);
-
-
-	MyComputer.Draw_RAM((7.5) * s, ground_y, 1 * s);
-	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
-
-	glDisable(GL_TEXTURE_2D);
-
 	// get my current pos 
 	float posX = MyCamera.Position.x;
 	float posY = MyCamera.Position.y;
@@ -128,7 +117,34 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookX = MyCamera.Position.x + lX;
 	float lookZ = MyCamera.Position.z + lZ;
 	float lookY = MyCamera.Position.y + lY;
+
+
+	FirstPersonCamera(keys, 0.4,s);
+	if (keys['G']){ // switch between two cameras
+		firstPerson = !firstPerson;
+		cout << firstPerson << endl;
+		//TODO add time so it doesnt change very fast
+	}
+
+	glEnable(GL_TEXTURE_2D);
+	//draw everything with texture here
+
+	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
+	MyComputer.Draw_ground(0, ground_y, 0, 26 * s, 26 * s, 26 * s);
+
+
+	MyComputer.Draw_RAM((7.5) * s, ground_y, 1 * s);
+	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
+
+
+	if (!firstPerson){
+		ThirdPersonCamera(lookX, lookY, lookZ);
+	}
+
+
+	glDisable(GL_TEXTURE_2D);
 	
+
 	if (keys['M']){
 		Bullet::draw_X(lookX, lookY, lookZ);
 	}

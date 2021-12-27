@@ -13,8 +13,10 @@ const double pi = 3.14, r = 5, rspeed = 0.0138, y_speed = 0.05;
 double lX, lY, lZ = (-1 * r);
 double angle_h = -1.57, angle_v = -1.57, max = (pi * 2);
 
-void ThirdPersonCamera(bool* keys, float speed){
-	//ALAA
+void ThirdPersonCamera(float lookX, float lookY, float lookZ){
+	MyCamera.Position.y = 2.5;
+	glColor3b(1, 1, 1);
+	drawMyCube(lookX, lookY, lookZ, 1, 1, 1, 0, 0, 0);
 }
 
 
