@@ -65,6 +65,8 @@ time_t shootBulletStartTime = time(0);
 
 //camera related
 bool firstPerson = true;
+time_t cameraSwitchStartTime = time(0);
+
 
 //sound
 /*bool shootingSoundIsPlaying = false;
@@ -85,6 +87,9 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 
+	// set initial camera location
+	MyCamera.Position.x = -1*12*s;
+	MyCamera.Position.z = 12*s;
 
 	// skybox
 	MyComputer.SKYBOX_UP = LoadTexture("data/skybox/up.bmp", 255);
@@ -151,7 +156,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	//0.4
 	FirstPersonCamera(keys, 0.4,s);
-	if (keys['G']){ // switch between two cameras
+	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 1)){ // switch between two cameras
+		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
 		cout << firstPerson << endl;
 		//TODO add time so it doesnt change very fast
@@ -176,7 +182,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
 
 
-	if (!firstPerson){
+	if (!firstPerson ){
 		ThirdPersonCamera(lookX, lookY, lookZ);
 	}
 
