@@ -186,38 +186,46 @@ void output(float x, float y, float z, const char *string)
 	}
 }
 
-void Draw_Glass(float x, float y, float z, float width, float height, float length){
+void Draw_Glass(float x, float y, float z, float width, float height, float length, bool left, bool right, bool front, bool back){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4d(1, 1, 1, 0.2);
+	glColor4d(1, 1, 1, 0.3);
 	//Front
-	glBegin(GL_QUADS);
-	glVertex3f(x, y, z - length);
-	glVertex3f(x, y + height, z - length);
-	glVertex3f(x + width, y + height, z - length);
-	glVertex3f(x + width, y, z - length);
-	glEnd();
+	if (front){
+		glBegin(GL_QUADS);
+		glVertex3f(x, y, z - length);
+		glVertex3f(x, y + height, z - length);
+		glVertex3f(x + width, y + height, z - length);
+		glVertex3f(x + width, y, z - length);
+		glEnd();
+	}
 	//Back
-	glBegin(GL_QUADS);
-	glVertex3f(x + width, y, z);
-	glVertex3f(x + width, y + height, z);
-	glVertex3f(x, y + height, z);
-	glVertex3f(x, y, z);
-	glEnd();
+	if (back){
+		glBegin(GL_QUADS);
+		glVertex3f(x + width, y, z);
+		glVertex3f(x + width, y + height, z);
+		glVertex3f(x, y + height, z);
+		glVertex3f(x, y, z);
+		glEnd();
+	}
 	//Left
-	glBegin(GL_QUADS);
-	glVertex3f(x, y + height, z);
-	glVertex3f(x, y + height, z - length);
-	glVertex3f(x, y, z - length);
-	glVertex3f(x, y, z);
-	glEnd();
+	if (left){
+		glBegin(GL_QUADS);
+		glVertex3f(x, y + height, z);
+		glVertex3f(x, y + height, z - length);
+		glVertex3f(x, y, z - length);
+		glVertex3f(x, y, z);
+		glEnd();
+	}
 	//Right
-	glBegin(GL_QUADS);
-	glVertex3f(x + width, y, z);
-	glVertex3f(x + width, y, z - length);
-	glVertex3f(x + width, y + height, z - length);
-	glVertex3f(x + width, y + height, z);
-	glEnd();
+	if (right){
+		glBegin(GL_QUADS);
+		glVertex3f(x + width, y, z);
+		glVertex3f(x + width, y, z - length);
+		glVertex3f(x + width, y + height, z - length);
+		glVertex3f(x + width, y + height, z);
+		glEnd();
+	}
 	//Up
 	glBegin(GL_QUADS);
 	glVertex3f(x + width, y + height, z);
@@ -225,6 +233,6 @@ void Draw_Glass(float x, float y, float z, float width, float height, float leng
 	glVertex3f(x, y + height, z - length);
 	glVertex3f(x, y + height, z);
 	glEnd();
-	glColor3d(1, 1, 1);
 	glDisable(GL_BLEND);
+	glColor3d(1, 1, 1);
 }

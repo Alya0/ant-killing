@@ -3,7 +3,7 @@ using namespace std;
 
 #pragma once;
 
-const int n = 25;
+const int n = 52;
 bool GRID[n][n];
 
 void initialize_GRID(){
@@ -20,11 +20,18 @@ void initialize_GRID(){
 		GRID[n - 1][i] = true;
 		GRID[0][i] = true;
 	}
-	for (int i = 11; i <= 20; i++) {
+	/*for (int i = 11; i <= 20; i++) {
 		//ram
 		GRID[19][i] = true;
 		GRID[21][i] = true;
 		GRID[23][i] = true;
+	}*/
+	//print grid
+	for (int i = n - 1; i >= 0; i--){
+		for (int j = n - 1; j >= 0; j--){
+			cout << GRID[i][j] << " ";
+		}
+		cout << endl;
 	}
 }
 

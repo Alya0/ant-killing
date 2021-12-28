@@ -7,6 +7,8 @@ class Computer{
 public:
 	const float s = 15;   // scale
 	const float ground_y = -2;
+
+
 	// images
 	int SKYBOX_UP, SKYBOX_SIDES, SKYBOX_DOWN;
 	int BLACK, RAM, GPU_FRONT, GPU_SIDE;

@@ -4,7 +4,11 @@
 #include<iostream>
 
 using namespace std;
+
+
+//camera
 Camera MyCamera;
+
 
 //when changing speed change rspeed and yspeed;
 

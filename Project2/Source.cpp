@@ -64,12 +64,11 @@ bool firstPerson = true;
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.0f, 0.0f, 0.0f, 0.50f);					// Black Background
+	glClearColor(0.0f, 0.0f, 0.0f, 0.50f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
-	glEnable(GL_TEXTURE_2D);
 
 
 	// skybox
@@ -92,7 +91,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	}
 
 
-	MyCamera = Camera();
+
 	//GL_CLAMP   GL_REPEAT  
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
@@ -133,7 +132,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyComputer.Draw_ground(0, ground_y, 0, 26 * s, 26 * s, 26 * s);
 
 
-	MyComputer.Draw_RAM((7.5) * s, ground_y, 1 * s);
+	MyComputer.Draw_RAM((7) * s, ground_y, 1 * s);
 	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
 
 
@@ -144,6 +143,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	glDisable(GL_TEXTURE_2D);
 	
+	Draw_Glass(6*s, ground_y, 2*s, 6*s, 2*s, 14*s, 1, 1, 1, 0);
 
 	if (keys['M']){
 		Bullet::draw_X(lookX, lookY, lookZ);
