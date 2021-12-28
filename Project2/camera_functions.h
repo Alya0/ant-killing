@@ -6,7 +6,7 @@
 using namespace std;
 Camera MyCamera;
 
-//when chaging speed change rspeed and yspeed;
+//when changing speed change rspeed and yspeed;
 
 //camera related variables: 
 const double pi = 3.14, r = 5, rspeed = 0.0138, y_speed = 0.05;

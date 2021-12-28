@@ -117,7 +117,7 @@ public:
 	}
 
 	void Draw_GPU(float x, float y, float z, float width, float height, float length){
-		Draw_Building(-12 * s, -1, 2 * s, 9 * s, 3 * s, 4 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_FRONT, GPU_FRONT);
+		Draw_Building(-13 * s, ground_y, 2 * s, 10 * s, 3 * s, 4 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_FRONT, GPU_FRONT);
 	}
 
 	void Draw_CPU(){
