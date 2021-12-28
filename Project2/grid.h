@@ -3,7 +3,7 @@ using namespace std;
 
 #pragma once;
 
-const int n = 52;
+static const int n = 52;
 static bool GRID[n][n];
 
 static void initialize_GRID(){
@@ -37,20 +37,12 @@ static void initialize_GRID(){
 		GRID[i][49] = true;
 	}
 
-
-	//print grid
-	for (int i = n - 1; i >= 0; i--){
-		for (int j = n - 1; j >= 0; j--){
-			cout << GRID[j][i] << " ";
-		}
-		cout << endl;
-	}
 }
 
 static bool checkMovement(float x, float z, int scale){
 	int X = (((x * 2) / scale) - 26) * -1;
 	int Z = ((z * (-1*2)) / scale) + 26;
-	cout << X << " " << Z << " " << GRID[X][Z] << endl;
+	//cout << X << " " << Z << " " << GRID[X][Z] << endl;
 	if (GRID[X][Z] == 1){
 		cout << "cant proceed!"<<endl;
 		return false;

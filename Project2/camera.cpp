@@ -96,7 +96,7 @@ Camera::Camera()
 
 	RotatedX = RotatedY = RotatedZ = 0.0;
 
-	//initialize_GRID();
+	initialize_GRID();
 }
 
 void Camera::RotateX(GLfloat Angle)

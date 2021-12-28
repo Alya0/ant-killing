@@ -55,7 +55,7 @@ const int ground_y = MyComputer.ground_y;
 set<Ant*> ants;
 GLTexture ant_texture;
 const int ant_count = 3;
-const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.5, ground_y + 1, -1 }, { 0, 0, 0 } };
+const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.6, ground_y + 1, -1 }, { 0, 0, 0 } };
 
 //bullet
 set<Bullet*> bullets;
@@ -115,6 +115,13 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
+	initialize_GRID();
+	/*for (int j = n - 1; j >= 0; j--){
+		for (int i = n - 1; i >= 0; i--){
+			cout << GRID[i][j] << " ";
+		}
+		cout << endl;
+	}*/
 
 	return TRUE;										// Initialization Went OK
 
@@ -126,6 +133,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glLoadIdentity();
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
+
 
 	// sound
 	/*if (shootingSoundIsPlaying && time(0) - shootingSoundStartTime == 2) {
@@ -187,7 +195,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		/*shootingSound.Play();
 		shootingSoundIsPlaying = true;
 		shootingSoundStartTime = time(0);*/
-		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ,0.25, 0.25));
+		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ,0.2, 0.25));
 	}
 
 	// draw bullets
@@ -201,7 +209,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	vector<Bullet*> toKillBullets;
 	for (auto bullet : bullets){
 		float X = bullet->get_posX(), Y = bullet->get_posY(), Z = bullet->get_posZ();
-		if ( (X >= 13*s) || (X <= (-1*13*s))
+		if (!checkMovement(X, Z, s) 
+			|| (X >= 13*s) || (X <= (-1*13*s))
 			|| (Z >= 13*s) || (Z <= -1 * 13 *s)
 			|| (Y >= 13 * s) || (Y <= (-1*13*s))
 			){
@@ -229,8 +238,6 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	for (auto bullet : toKillBullets){
 		bullets.erase(bullet);
 	}
-
-	//cout << bullets.size() << endl;
 
 	// draw glass
 
