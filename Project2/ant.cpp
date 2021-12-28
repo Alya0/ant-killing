@@ -18,7 +18,7 @@ Ant::Ant(GLfloat x, GLfloat y, GLfloat z, GLTexture texture, char* path){
 	ant.pos.x = x;
 	ant.pos.y = y;
 	ant.pos.z = z;
-	ant.scale = 0.025;
+	ant.scale = 0.05; //0.025
 	ant_texture = texture;
 	posX = x;
 	posY = y;

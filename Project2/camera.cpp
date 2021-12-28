@@ -96,7 +96,7 @@ Camera::Camera()
 
 	RotatedX = RotatedY = RotatedZ = 0.0;
 
-	initialize_GRID();
+	//initialize_GRID();
 }
 
 void Camera::RotateX(GLfloat Angle)
@@ -147,7 +147,7 @@ void Camera::MoveRight(GLfloat Distance, int scale)
 {
 	this->RotateX(-1 * RotatedX);
 	Vector3dStruct tmp = Position + (RightVector*Distance);
-	if (checkMovement(tmp.x, tmp.y, scale)){	
+	if (checkMovement(tmp.x, tmp.z, scale)){	
 		Position = Position + (RightVector*Distance);
 	}
 }

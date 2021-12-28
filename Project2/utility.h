@@ -12,6 +12,7 @@
 #include "TgaLoader.h"
 #include "ant.h"
 #include "bullet.h"
+//#include "Sound.h"
 #include <set>
 #include<vector>
 
@@ -187,6 +188,7 @@ void output(float x, float y, float z, const char *string)
 }
 
 void Draw_Glass(float x, float y, float z, float width, float height, float length, bool left, bool right, bool front, bool back){
+	//glDisable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4d(1, 1, 1, 0.3);
@@ -235,4 +237,5 @@ void Draw_Glass(float x, float y, float z, float width, float height, float leng
 	glEnd();
 	glDisable(GL_BLEND);
 	glColor3d(1, 1, 1);
+	//glEnable(GL_TEXTURE_2D);
 }

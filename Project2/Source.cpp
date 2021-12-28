@@ -1,6 +1,9 @@
 #include "utility.h"
 #include "computer.h"
 #include "camera_functions.h"
+#include "grid.h"
+#include <time.h>
+
 using namespace std;
 
 #pragma comment(lib,"opengl32.lib")
@@ -41,25 +44,37 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 	glLoadIdentity();									// Reset The Modelview Matrix
 }
 
-
-// ant declerations
-set<Ant*> ants;
-GLTexture ant_texture;
-const int ant_count = 2;
-const int ant_pos [ant_count][3] = { { 0, 0, 0 }, { 5, 0, -1 } };
-
-//bullet
-set<Bullet*> bullets;
-const float kill_range = 0.75;
-
+// ===============================================================================================================
 //computer
 Computer MyComputer;
 
 const float s = MyComputer.s;
 const int ground_y = MyComputer.ground_y;
 
+// ant declerations
+set<Ant*> ants;
+GLTexture ant_texture;
+const int ant_count = 3;
+const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.5, ground_y + 1, -1 }, { 0, 0, 0 } };
+
+//bullet
+set<Bullet*> bullets;
+const float kill_range = 0.75;
+time_t shootBulletStartTime = time(0);
+
+
+//camera related
 bool firstPerson = true;
 
+//sound
+/*bool shootingSoundIsPlaying = false;
+time_t shootingSoundStartTime;
+
+INIT initialize = INIT(); // Sound Initialize
+Sound shootingSound;
+Sound sound2;*/
+
+//===================================================================================================================================
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
@@ -83,14 +98,17 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.GPU_FRONT = LoadTexture("data/gpu_front.bmp");
 	MyComputer.GPU_SIDE = LoadTexture("data/gpu_sides.bmp");
 
-
+	// DECLARE ANTS
 	ant_texture.LoadBMP("data/ant.bmp");
 
 	for (int i = 0; i < ant_count; i++){
-		ants.insert(new Ant(ant_pos[i][0], ant_pos[i][1], ant_pos[i][2], ant_texture, "data/ant.3ds"));
+		ants.insert(new Ant(ant_pos[i][0]*s, ant_pos[i][1], ant_pos[i][2]*s, ant_texture, "data/ant.3ds"));
 	}
 
 
+	// SOUND
+	//initialize.InitOpenAL(); // initialize sound from OpenAl
+	//shootingSound = Sound("data/shot.wav");
 
 	//GL_CLAMP   GL_REPEAT  
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -109,6 +127,12 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
+	// sound
+	/*if (shootingSoundIsPlaying && time(0) - shootingSoundStartTime == 2) {
+		shootingSoundIsPlaying = false;
+		shootingSound.Stop();
+	}*/
+
 	// get my current pos 
 	float posX = MyCamera.Position.x;
 	float posY = MyCamera.Position.y;
@@ -117,13 +141,21 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookZ = MyCamera.Position.z + lZ;
 	float lookY = MyCamera.Position.y + lY;
 
-
+	//0.4
 	FirstPersonCamera(keys, 0.4,s);
 	if (keys['G']){ // switch between two cameras
 		firstPerson = !firstPerson;
 		cout << firstPerson << endl;
 		//TODO add time so it doesnt change very fast
 	}
+
+
+	// draw ants
+
+	for (auto ant : ants){
+		ant->draw();
+	}
+
 
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
@@ -142,46 +174,50 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 
 	glDisable(GL_TEXTURE_2D);
-	
-	Draw_Glass(6*s, ground_y, 2*s, 6*s, 2*s, 14*s, 1, 1, 1, 0);
+
+
+	// handle bullet
 
 	if (keys['M']){
 		Bullet::draw_X(lookX, lookY, lookZ);
 	}
-	if (keys['N']){
+	if (keys[' '] && (time(0) - shootBulletStartTime >= 1)){
+		shootBulletStartTime = time(0);
+		//sound
+		/*shootingSound.Play();
+		shootingSoundIsPlaying = true;
+		shootingSoundStartTime = time(0);*/
 		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ,0.25, 0.25));
 	}
 
-
-
-	// draw ant and bullets
-
-	for (auto ant : ants){
-		ant->draw();
-	}
-
+	// draw bullets
 	for (auto bullet : bullets){
 		bullet->draw();
 	}
+
 
 	//check if bullets outside borders or killed ants;
 	vector<Ant*> toKillAnts;
 	vector<Bullet*> toKillBullets;
 	for (auto bullet : bullets){
 		float X = bullet->get_posX(), Y = bullet->get_posY(), Z = bullet->get_posZ();
-		if (X >= 13 * s || X <= (-1 * 13 * s) || Z >= (13 * s) || Z <= (-1 * 13 * s) || Y <= (-13 * s) || Y >= 13 * s){
+		if ( (X >= 13*s) || (X <= (-1*13*s))
+			|| (Z >= 13*s) || (Z <= -1 * 13 *s)
+			|| (Y >= 13 * s) || (Y <= (-1*13*s))
+			){
 			//if bullet is out of skybox range
 			toKillBullets.push_back(bullet);
-			continue;
 		}
-		for (auto ant : ants){
-			if ((X <= ant->get_posX() + kill_range && X >= ant->get_posX() - kill_range)
-				&& (Y <= ant->get_posY() + kill_range && Y >= ant->get_posY() - kill_range)
-				&& (Z <= ant->get_posZ() + kill_range && Z >= ant->get_posZ() - kill_range)
-				){
-				toKillAnts.push_back(ant);
-				toKillBullets.push_back(bullet);
-				break;
+		else{
+			for (auto ant : ants){
+				if ((X <= ant->get_posX() + kill_range && X >= ant->get_posX() - kill_range)
+					&& (Y <= ant->get_posY() + kill_range && Y >= ant->get_posY() - kill_range)
+					&& (Z <= ant->get_posZ() + kill_range && Z >= ant->get_posZ() - kill_range)
+					){
+					toKillAnts.push_back(ant);
+					toKillBullets.push_back(bullet);
+					break;
+				}
 			}
 		}
 	}
@@ -194,7 +230,14 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		bullets.erase(bullet);
 	}
 
-	glFlush();										
+	//cout << bullets.size() << endl;
+
+	// draw glass
+
+	Draw_Glass(6*s, ground_y, 2*s, 6*s, 2*s, 14*s, 1, 1, 1, 0);
+
+	glFlush();	
+
 
 	//SwapBuffers(hDC);
 	return TRUE;
