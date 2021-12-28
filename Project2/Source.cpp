@@ -156,7 +156,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	//0.4
 	FirstPersonCamera(keys, 0.4,s);
-	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 1)){ // switch between two cameras
+	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras
 		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
 		cout << firstPerson << endl;
@@ -195,7 +195,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	if (keys['M']){
 		Bullet::draw_X(lookX, lookY, lookZ);
 	}
-	if (keys[' '] && (time(0) - shootBulletStartTime >= 1)){
+	if (keys[' '] && (time(0) - shootBulletStartTime >= 0.5)){
 		shootBulletStartTime = time(0);
 		//sound
 		/*shootingSound.Play();
