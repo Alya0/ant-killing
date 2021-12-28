@@ -35,9 +35,9 @@ void Bullet::setCurrentCoordinates(){
 
 void Bullet::draw_X(float x, float y, float z){
 	float length = 0.1;
-	glLineWidth(4);
+	glLineWidth(3);
 	glBegin(GL_LINES);
-	glColor3f(1, 0, 0);
+	glColor3f(0.8, 0, 0);
 	glVertex3f(x, y + length, z);
 	glVertex3f(x, y - length, z);
 	glVertex3f(x + length, y, z);
