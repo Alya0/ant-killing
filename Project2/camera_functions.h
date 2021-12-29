@@ -13,7 +13,7 @@ Camera MyCamera;
 //when changing speed change rspeed and yspeed;
 
 //camera related variables: 
-const double pi = 3.14, r = 5, rspeed = 0.0138, y_speed = 0.05;
+const double pi = 3.14, r = 5, rspeed = 0.021, y_speed = 0.06;
 double lX, lY, lZ = (-1 * r);
 double angle_h = -1.57, angle_v = -1.57, max = (pi * 2);
 
@@ -35,7 +35,7 @@ void FirstPersonCamera(bool* keys, float speed, int scale){
 		MyCamera.RotateX(2 * speed);
 	}
 	if (keys['D']){
-		lY = 0;
+		//lY = 0;
 
 		angle_h += rspeed;
 		if (angle_h > max) angle_h -= max;
@@ -46,7 +46,7 @@ void FirstPersonCamera(bool* keys, float speed, int scale){
 		MyCamera.RotateY(-2 * speed);
 	}
 	if (keys['A'] ){
-		lY = 0;
+		//lY = 0;
 
 		angle_h -= rspeed;
 		if (angle_h < 0) angle_h += max;
@@ -57,19 +57,19 @@ void FirstPersonCamera(bool* keys, float speed, int scale){
 		MyCamera.RotateY(2 * speed);
 	}
 	if (keys[VK_UP]){
-		lY = 0;
+		//lY = 0;
 		MyCamera.MoveForward(1 * speed, scale);
 	}
 	if (keys[VK_DOWN]){
-		lY = 0;
+		//lY = 0;
 		MyCamera.MoveForward(-1 * speed, scale);
 	}
 	if (keys[VK_RIGHT]){
-		lY = 0;
+		//lY = 0;
 		MyCamera.MoveRight(1 * speed, scale);
 	}
 	if (keys[VK_LEFT]){
-		lY = 0;
+		//lY = 0;
 		MyCamera.MoveRight(-1 * speed, scale);
 	}
 }

@@ -92,8 +92,6 @@ Camera::Camera()
 	RightVector = Vector3dCreate(1.0, 0.0, 0.0);
 	Up = Vector3dCreate(0.0, 1.0, 0.0);
 
-	Base = Vector3dCreate(0.0, 1.0, 0.0);
-
 	RotatedX = RotatedY = RotatedZ = 0.0;
 
 	initialize_GRID();
@@ -110,11 +108,11 @@ void Camera::RotateX(GLfloat Angle)
 
 void Camera::RotateY(GLfloat Angle)
 {
-	float center = View.y;
-	float R = View.z;
 	RotatedY += Angle;
-	this->RotateX(-1 * RotatedX);
-
+	//this->RotateX(-1 * RotatedX);
+	Up.x = 0;
+	Up.y = 1;
+	Up.z = 0;
 	//Rotate viewdir around the up vector:
 	View = NormalizeVector3d(View*cosf(Angle*PIdiv180) - RightVector*sinf(Angle*PIdiv180));
 	//now compute the new RightVector (by cross product)
@@ -136,7 +134,7 @@ void Camera::Render(void)
 
 void Camera::MoveForward(GLfloat Distance, int scale)
 {
-	this->RotateX(-1 * RotatedX);
+	//this->RotateX(-1 * RotatedX);
 	Vector3dStruct tmp = Position + (View*Distance);
 	if (checkMovement(tmp.x, tmp.z, scale)){
 		Position = Position + (View*Distance);
@@ -145,7 +143,7 @@ void Camera::MoveForward(GLfloat Distance, int scale)
 
 void Camera::MoveRight(GLfloat Distance, int scale)
 {
-	this->RotateX(-1 * RotatedX);
+	//this->RotateX(-1 * RotatedX);
 	Vector3dStruct tmp = Position + (RightVector*Distance);
 	if (checkMovement(tmp.x, tmp.z, scale)){	
 		Position = Position + (RightVector*Distance);

@@ -5,7 +5,7 @@
 
 class Computer{
 public:
-	const float s = 15;   // scale
+	const float s = 10;   // scale
 	const float ground_y = -2;
 
 

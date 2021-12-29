@@ -239,3 +239,121 @@ void Draw_Glass(float x, float y, float z, float width, float height, float leng
 	glColor3d(1, 1, 1);
 	//glEnable(GL_TEXTURE_2D);
 }
+
+
+
+
+void Draw_Building2(float x, float y, float z, float width, float height, float length, float r, float g, float b){
+	glDisable(GL_TEXTURE_2D);
+
+	// Draw Front side
+	//glBindTexture(GL_TEXTURE_2D, FRONT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glColor3f(r, g, b);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z - length);
+	glEnd();
+
+	// Draw Back side
+	//glBindTexture(GL_TEXTURE_2D, BACK);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+	glEnd();
+
+	// Draw Left side
+	//glBindTexture(GL_TEXTURE_2D, LEFT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z - length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z - length);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+	glEnd();
+
+	// Draw Right side
+	//glBindTexture(GL_TEXTURE_2D, RIGHT);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z - length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glEnd();
+
+	// Draw Up side
+	//glBindTexture(GL_TEXTURE_2D, UP);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z - length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glEnd();
+
+	// Draw Down side
+	//glBindTexture(GL_TEXTURE_2D, DOWN);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y, z - length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z);
+	glEnd();
+	//glDisable(GL_TEXTURE_2D);
+}
+
+void circle(float r, float temp, float R, float g, float b){
+	glColor3f(R, g, b);
+	glBegin(GL_POLYGON);
+	for (float angle = 0.0f; angle <= (2.0f*3.14f)*r; angle += 0.2f){
+		float x = r*cos(angle);
+		float y = r*sin(angle);
+		glVertex3f(x, y, temp);
+	}
+	glEnd();
+}
+
+void draw_cylender(float r, float depth, float R, float g, float b){
+	//glColor3b(r, g, b);
+	glBegin(GL_POLYGON);
+	for (float angle = 0.0f; angle <= (2.0f*3.14f)*r; angle += 0.2f){
+		float x = r*cos(angle);
+		float y = r*sin(angle);
+		glVertex3f(x, y, 0);
+	}
+	glEnd();
+	glBegin(GL_POLYGON);
+	for (float angle = 0.0f; angle <= (2.0f*3.14f)*r; angle += 0.2f){
+		float x = r*cos(angle);
+		float y = r*sin(angle);
+		glVertex3f(x, y, depth);
+	}
+	glEnd();
+	for (float angle = 0.0f; angle <= (2.0f*3.14f)*r; angle += 0.1f){
+		float x = r*cos(angle);
+		float y = r*sin(angle);
+		float next_x = r*cos(angle + 0.1);
+		float next_y = r*sin(angle + 0.1);
+		glBegin(GL_QUADS);
+		//glColor3b(r, g, b);
+		glVertex3f(x, y, 0);
+		glVertex3f(next_x, next_y, 0);
+		glVertex3f(next_x, next_y, depth);
+		glVertex3f(x, y, depth);
+		glEnd();
+	}
+
+}

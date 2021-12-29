@@ -27,7 +27,6 @@ public:
 	Vector3dStruct Up;
 	Vector3dStruct Position;
 	Vector3dStruct lookAt;
-	Vector3dStruct Base;
 	GLfloat RotatedX, RotatedY, RotatedZ;
 
 public:

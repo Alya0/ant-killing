@@ -88,8 +88,8 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 
 	// set initial camera location
-	MyCamera.Position.x = -1*12*s;
-	MyCamera.Position.z = 12*s;
+	//MyCamera.Position.x = -1*12*s;
+	//MyCamera.Position.z = 12*s;
 
 	// skybox
 	MyComputer.SKYBOX_UP = LoadTexture("data/skybox/up.bmp", 255);
@@ -107,7 +107,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	ant_texture.LoadBMP("data/ant.bmp");
 
 	for (int i = 0; i < ant_count; i++){
-		ants.insert(new Ant(ant_pos[i][0]*s, ant_pos[i][1], ant_pos[i][2]*s, ant_texture, "data/ant.3ds"));
+		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s, ant_texture, "data/ant.3ds"));
 	}
 
 
@@ -122,10 +122,10 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 
 	initialize_GRID();
 	/*for (int j = n - 1; j >= 0; j--){
-		for (int i = n - 1; i >= 0; i--){
-			cout << GRID[i][j] << " ";
-		}
-		cout << endl;
+	for (int i = n - 1; i >= 0; i--){
+	cout << GRID[i][j] << " ";
+	}
+	cout << endl;
 	}*/
 
 	return TRUE;										// Initialization Went OK
@@ -139,11 +139,10 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
-
 	// sound
 	/*if (shootingSoundIsPlaying && time(0) - shootingSoundStartTime == 2) {
-		shootingSoundIsPlaying = false;
-		shootingSound.Stop();
+	shootingSoundIsPlaying = false;
+	shootingSound.Stop();
 	}*/
 
 	// get my current pos 
@@ -155,7 +154,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookY = MyCamera.Position.y + lY;
 
 	//0.4
-	FirstPersonCamera(keys, 0.4,s);
+	FirstPersonCamera(keys, 0.6, s);
 	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras
 		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
@@ -182,7 +181,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
 
 
-	if (!firstPerson ){
+	if (!firstPerson){
 		ThirdPersonCamera(lookX, lookY, lookZ);
 	}
 
@@ -192,16 +191,15 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// handle bullet
 
-	if (keys['M']){
-		Bullet::draw_X(lookX, lookY, lookZ);
-	}
+	Bullet::draw_X(lookX, lookY, lookZ);
+	
 	if (keys[' '] && (time(0) - shootBulletStartTime >= 0.5)){
 		shootBulletStartTime = time(0);
 		//sound
 		/*shootingSound.Play();
 		shootingSoundIsPlaying = true;
 		shootingSoundStartTime = time(0);*/
-		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ,0.2, 0.25));
+		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ, 0.2, 0.25));
 	}
 
 	// draw bullets
@@ -215,10 +213,10 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	vector<Bullet*> toKillBullets;
 	for (auto bullet : bullets){
 		float X = bullet->get_posX(), Y = bullet->get_posY(), Z = bullet->get_posZ();
-		if (!checkMovement(X, Z, s) 
-			|| (X >= 13*s) || (X <= (-1*13*s))
-			|| (Z >= 13*s) || (Z <= -1 * 13 *s)
-			|| (Y >= 13 * s) || (Y <= (-1*13*s))
+		if (!checkMovement(X, Z, s)
+			|| (X >= 13 * s) || (X <= (-1 * 13 * s))
+			|| (Z >= 13 * s) || (Z <= -1 * 13 * s)
+			|| (Y >= 13 * s) || (Y <= (-1 * 13 * s))
 			){
 			//if bullet is out of skybox range
 			toKillBullets.push_back(bullet);
@@ -247,9 +245,11 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw glass
 
-	Draw_Glass(6*s, ground_y, 2*s, 6*s, 2*s, 14*s, 1, 1, 1, 0);
+	Draw_Glass(6 * s, ground_y, 2 * s, 6 * s, 2 * s, 14 * s, 1, 1, 1, 0);
 
-	glFlush();	
+
+
+	glFlush();
 
 
 	//SwapBuffers(hDC);
