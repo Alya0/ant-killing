@@ -106,6 +106,14 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.GPU_FRONT = LoadTexture("data/gpu_front.bmp");
 	MyComputer.GPU_SIDE = LoadTexture("data/gpu_sides.bmp");
 
+	//CPU
+	MyComputer.CPU_FRONT = LoadTexture("data/cpu_front.bmp");
+	MyComputer.CPU_SIDES = LoadTexture("data/cpu_side.bmp");
+	MyComputer.CPU_DOWN = LoadTexture("data/cpu_down.bmp");
+	MyComputer.CPU_INSIDE = LoadTexture("data/cpu_inside.bmp");
+	MyComputer.CPU_INSIDE_SIDE = LoadTexture("data/cpu_inside_side.bmp");
+	MyComputer.CPU_CIRCUIT = LoadTexture("data/cpu_circuit.bmp");
+
 	// DECLARE ANTS
 	ant_texture.LoadBMP("data/ant.bmp");
 
@@ -174,9 +182,15 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
 	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
+
 	MyComputer.Draw_ground(0, ground_y, 0, 26 * s, 26 * s, 26 * s);
+
 	MyComputer.Draw_RAM((7) * s, ground_y, 1 * s);
+
 	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
+
+	MyComputer.Draw_CPU(4*s , ground_y, 13*s , 7*s , 2.5*s , 8*s); // make z = 13
+
 	glDisable(GL_TEXTURE_2D);
 
 
@@ -243,7 +257,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw glass
 
-	Draw_Glass(6 * s, ground_y, 2 * s, 6 * s, 2 * s, 14 * s, 1, 1, 1, 0);
+	Draw_Glass(6 * s, ground_y, 2 * s, 6 * s, 2 * s, 14 * s, 1 , 1, 1, 1, 0);
 
 
 

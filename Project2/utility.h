@@ -81,8 +81,9 @@ void drawMyCube(float xPos, float yPos, float zPos,
 
 }
 
-void drawSphere(double r, int lats, int longs) {
-	float M_PI = 3.14;
+void drawSphere(double r, int lats, int longs , int p) {
+	glDisable(GL_TEXTURE_2D);
+	float M_PI = 3.14/p;
 	int i, j;
 	for (i = 0; i <= lats; i++) {
 		double lat0 = M_PI * (-0.5 + (double)(i - 1) / lats);
@@ -105,75 +106,89 @@ void drawSphere(double r, int lats, int longs) {
 		}
 		glEnd();
 	}
+	glEnable(GL_TEXTURE_2D);
 }
-void Draw_Building(float x, float y, float z, float width, float height, float length, int UP, int DOWN, int LEFT, int RIGHT, int FRONT, int BACK){
+void Draw_Building(float x, float y, float z, float width, float height, float length, int UP, int DOWN, int LEFT, int RIGHT, int FRONT, int BACK
+	, bool FUP, bool FDOWN, bool FLEFT, bool FRIGHT, bool FFRONT, bool FBACK){
 	//glEnable(GL_TEXTURE_2D);
 
 	// Draw Front side
-	glBindTexture(GL_TEXTURE_2D, FRONT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z - length);
-	glEnd();
+	if (FFRONT){
+		glBindTexture(GL_TEXTURE_2D, FRONT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z - length);
+		glEnd();
+	}
 
 	// Draw Back side
-	glBindTexture(GL_TEXTURE_2D, BACK);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
-	glEnd();
+	if (FBACK){
+		glBindTexture(GL_TEXTURE_2D, BACK);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+		glEnd();
+	}
 
 	// Draw Left side
-	glBindTexture(GL_TEXTURE_2D, LEFT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z - length);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z - length);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
-	glEnd();
+	if (FLEFT){
+		glBindTexture(GL_TEXTURE_2D, LEFT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z - length);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z - length);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+		glEnd();
+	}
 
 	// Draw Right side
-	glBindTexture(GL_TEXTURE_2D, RIGHT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z - length);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
-	glEnd();
+	if (FRIGHT){
+		glBindTexture(GL_TEXTURE_2D, RIGHT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z - length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z - length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
+		glEnd();
+	}
 
 	// Draw Up side
-	glBindTexture(GL_TEXTURE_2D, UP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z - length);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
-	glEnd();
+	if (FUP){
+		glBindTexture(GL_TEXTURE_2D, UP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z - length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z - length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+		glEnd();
+	}
 
 	// Draw Down side
-	glBindTexture(GL_TEXTURE_2D, DOWN);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y, z - length);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z);
-	glEnd();
+	if (FDOWN){
+		glBindTexture(GL_TEXTURE_2D, DOWN);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, 0x812F);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, 0x812F);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z - length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y, z - length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z);
+		glEnd();
+	}
 	//glDisable(GL_TEXTURE_2D);
 }
 void output(float x, float y, float z, const char *string)
@@ -187,8 +202,8 @@ void output(float x, float y, float z, const char *string)
 	}
 }
 
-void Draw_Glass(float x, float y, float z, float width, float height, float length, bool left, bool right, bool front, bool back){
-	//glDisable(GL_TEXTURE_2D);
+void Draw_Glass(float x, float y, float z, float width, float height, float length, bool up , bool left, bool right, bool front, bool back){
+	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4d(1, 1, 1, 0.3);
@@ -229,15 +244,17 @@ void Draw_Glass(float x, float y, float z, float width, float height, float leng
 		glEnd();
 	}
 	//Up
-	glBegin(GL_QUADS);
-	glVertex3f(x + width, y + height, z);
-	glVertex3f(x + width, y + height, z - length);
-	glVertex3f(x, y + height, z - length);
-	glVertex3f(x, y + height, z);
-	glEnd();
+	if (up){
+		glBegin(GL_QUADS);
+		glVertex3f(x + width, y + height, z);
+		glVertex3f(x + width, y + height, z - length);
+		glVertex3f(x, y + height, z - length);
+		glVertex3f(x, y + height, z);
+		glEnd();
+	}
 	glDisable(GL_BLEND);
 	glColor3d(1, 1, 1);
-	//glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 }
 
 
@@ -327,7 +344,8 @@ void circle(float r, float temp, float R, float g, float b){
 }
 
 void draw_cylender(float r, float depth, float R, float g, float b){
-	//glColor3b(r, g, b);
+	glDisable(GL_TEXTURE_2D);
+	glColor3ub(R, g, b);
 	glBegin(GL_POLYGON);
 	for (float angle = 0.0f; angle <= (2.0f*3.14f)*r; angle += 0.2f){
 		float x = r*cos(angle);
@@ -355,5 +373,6 @@ void draw_cylender(float r, float depth, float R, float g, float b){
 		glVertex3f(x, y, depth);
 		glEnd();
 	}
-
+	glColor3f(1, 1, 1);
+	glEnable(GL_TEXTURE_2D);
 }
