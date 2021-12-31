@@ -54,9 +54,11 @@ const int ground_y = MyComputer.ground_y;
 // ant declerations
 set<Ant*> ants;
 GLTexture ant_texture;
-const int ant_count = 1;
-//const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.6, ground_y + 1, -1 }, { 0, 0, 0 } };
-const float ant_pos[ant_count][3] = { { 0, ground_y + 1, -3 } };
+const int ant_count = 7;
+int ants_left = ant_count;
+const float ant_pos[ant_count][4] = {
+	{ 8, ground_y + 1, -7, 180 }, { 7, ground_y + 1, -11.4, 270}, { 8.2, ground_y + 1, -3,0}, { 6.75, ground_y + 1, -1, 0}, { 10, ground_y + 1, -1,180}, { 9.6, ground_y + 1, -6, 180 }, {10.4, ground_y+1, -10,180}
+};
 
 //bullet
 set<Bullet*> bullets;
@@ -108,9 +110,8 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	ant_texture.LoadBMP("data/ant.bmp");
 
 	for (int i = 0; i < ant_count; i++){
-		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s, ant_texture, "data/ant.3ds"));
+		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds"));
 	}
-
 
 	// SOUND
 	//initialize.InitOpenAL(); // initialize sound from OpenAl
@@ -154,42 +155,35 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookZ = MyCamera.Position.z + lZ;
 	float lookY = MyCamera.Position.y + lY;
 
-	//0.4
 	FirstPersonCamera(keys, 0.6, s);
-	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras
+	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras with time so it changes only once ebery 0.5 second
 		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
 		cout << firstPerson << endl;
-		//TODO add time so it doesnt change very fast
 	}
 
-
 	// draw ants
-
 	for (auto ant : ants){
-		ant->moveAnt(posX, posZ);
+		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s);
+		if (checkMovement(newPos.first, newPos.second, s)){
+			ant->assignPosition(newPos.first, newPos.second);
+		}
 		ant->draw();
 	}
 
-
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
-
 	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
 	MyComputer.Draw_ground(0, ground_y, 0, 26 * s, 26 * s, 26 * s);
-
-
 	MyComputer.Draw_RAM((7) * s, ground_y, 1 * s);
 	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
+	glDisable(GL_TEXTURE_2D);
 
 
+	// third person
 	if (!firstPerson){
 		ThirdPersonCamera(lookX, lookY, lookZ);
 	}
-
-
-	glDisable(GL_TEXTURE_2D);
-
 
 	// handle bullet
 
@@ -229,6 +223,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					&& (Y <= ant->get_posY() + kill_range && Y >= ant->get_posY() - kill_range)
 					&& (Z <= ant->get_posZ() + kill_range && Z >= ant->get_posZ() - kill_range)
 					){
+					ants_left--;
+					cout << "ANTS LEFT: " << ants_left << endl;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;

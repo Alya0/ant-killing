@@ -3,51 +3,58 @@
 #include <gl/GL.h>				// Header File For The OpenGL32 Library
 #include <gl/glu.h>	
 #include <math.h>
+#include <cmath>
 #include<set>
 
 #include "ant.h"
 
 #include <stdlib.h>   /* for exit */
 #include <iostream> 
+using namespace std;
 
 #define SQR(x) (x*x)
 
 Ant::Ant(){
 }
 
-Ant::Ant(GLfloat x, GLfloat y, GLfloat z, GLTexture texture, char* path){
+Ant::Ant(GLfloat x, GLfloat y, GLfloat z,float rotate,  GLTexture texture, char* path){
 	ant = Model_3DS();
 	ant.Load(path);
-	ant.pos.x = x;
-	ant.pos.y = y;
-	ant.pos.z = z;
+	ant.pos.x = 0;
+	ant.pos.y = 0;
+	ant.pos.z = 0;
 	ant.scale = 0.05; //0.025
 	ant_texture = texture;
+	rotation_angle = rotate;
 	posX = x;
 	posY = y;
 	posZ = z;
 }
 
 
+
 void Ant::draw(){
 	ant.Materials[0].tex = ant_texture;
+	glPushMatrix();
+	glTranslated(posX, posY, posZ);
+	glRotated(rotation_angle, 0, 1, 0);
 	ant.Draw();
+	glPopMatrix();
 }
 
 
-void Ant::moveAnt(float lX, float lZ){
-	// integer values here are multiplied by s, which means changing s change these values
-	if (sqrt(SQR((ant.pos.x - lX)) + SQR((ant.pos.z - lZ))) > 40){
-		// if ant is far away from me it doesnt move;
-		return;
+pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale){
+	if (sqrt(SQR((posX - lX)) + SQR((posZ - lZ))) > 4*scale){                         // ant is far away
+		return {posX, posZ};
 	}
-	if (abs(lX - ant.pos.x) <= 2 && abs(lZ  - ant.pos.z) <= 2){
+	if (abs(lX - posX) <= 2 && abs(lZ - posZ) <= 0.2*scale){                             // ant reached my pos
 		std::cout << "GAME OVER!" ;
 		exit(0);
 	}
 
-	float X = ant.pos.x;
-	float Z = ant.pos.z;
+	float X = posX;
+	float Z = posZ;
+	float Y = posY;
 	// make ant pos (0,0) and camera pos relevant to it
 	lX -= X;
 	lZ -= Z;
@@ -55,19 +62,25 @@ void Ant::moveAnt(float lX, float lZ){
 	float addX = speed*lX;
 	float addZ = speed*lZ;
 	 
-	//TODO: check for collision
-	ant.pos.x += addX;
-	ant.pos.z += addZ;
+	float newX = posX + addX;
+	float newZ = posZ + addZ;
+	return { newX, newZ };
+}
+
+
+void Ant::assignPosition(float x, float z){
+	posX = x;
+	posZ = z;
 }
 
 float Ant::get_posX(){
-	return ant.pos.x;
+	return posX;
 }
 
 float Ant::get_posY(){
-	return ant.pos.y;
+	return posY;
 }
 
 float Ant::get_posZ(){
-	return ant.pos.z;
+	return posZ;
 }

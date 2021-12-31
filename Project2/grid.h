@@ -44,7 +44,7 @@ static bool checkMovement(float x, float z, int scale){
 	int Z = ((z * (-1*2)) / scale) + 26;
 	//cout << X << " " << Z << " " << GRID[X][Z] << endl;
 	if (GRID[X][Z] == 1){
-		cout << "cant proceed!"<<endl;
+		//cout << "cant proceed!"<<endl;
 		return false;
 	}
 	return true;

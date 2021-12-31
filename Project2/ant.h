@@ -7,7 +7,8 @@
 #include "Model_3DS.h"
 #include "3DTexture.h"
 #include <set>
-
+#include <iostream> 
+using namespace std;
 class Ant
 {
 private:
@@ -16,14 +17,15 @@ private:
 	GLTexture ant_texture;
 	float posX, posY, posZ;
 	const float speed = 0.005;
+	float rotation_angle = 180;
 
 public:
 	Ant();
-	Ant(GLfloat x, GLfloat y, GLfloat z, GLTexture texture, char* path);
-	void assignPosition();
+	Ant(GLfloat x, GLfloat y, GLfloat z,float rotate, GLTexture texture, char* path);
+	void assignPosition(float x, float z);
 	void assignTexture(GLTexture texture); // adds texture to ant
 	void draw(); // draws the ant
-	void moveAnt(float lX, float lZ);
+	pair <float, float> getAntNextStep(float lX, float lY, float lZ, float scale);
 	float get_posX();
 	float get_posY();
 	float get_posZ();
