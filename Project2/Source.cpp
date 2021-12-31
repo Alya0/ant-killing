@@ -54,8 +54,9 @@ const int ground_y = MyComputer.ground_y;
 // ant declerations
 set<Ant*> ants;
 GLTexture ant_texture;
-const int ant_count = 3;
-const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.6, ground_y + 1, -1 }, { 0, 0, 0 } };
+const int ant_count = 1;
+//const float ant_pos[ant_count][3] = { { 8, ground_y + 1, -7 }, { 6.6, ground_y + 1, -1 }, { 0, 0, 0 } };
+const float ant_pos[ant_count][3] = { { 0, ground_y + 1, -3 } };
 
 //bullet
 set<Bullet*> bullets;
@@ -166,6 +167,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	// draw ants
 
 	for (auto ant : ants){
+		ant->moveAnt(posX, posZ);
 		ant->draw();
 	}
 
