@@ -145,6 +145,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	initialize_GRID();
+	initialize_Bullet_GRID();
 	for (int j = n - 1; j >= 0; j--){
 	for (int i = n - 1; i >= 0; i--){
 	cout << GRID[i][j] << " ";
@@ -240,7 +241,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	vector<Bullet*> toKillBullets;
 	for (auto bullet : bullets){
 		float X = bullet->get_posX(), Y = bullet->get_posY(), Z = bullet->get_posZ();
-		if (!checkMovement(X, Z, s)
+		if (!checkBulletMovement(X, Z, s)
 			|| (X >= 13 * s) || (X <= (-1 * 13 * s))
 			|| (Z >= 13 * s) || (Z <= -1 * 13 * s)
 			|| (Y >= 13 * s) || (Y <= (-1 * 13 * s))
@@ -284,7 +285,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	Draw_Glass(4*s , ground_y + (1 * s) , 13*s, 7*s , 1.5*s , 8*s, false, true, false, false, false);
 
 	//STORAGE
-	Draw_Glass(-11 * s, ground_y + 0.1, -4 * s, 16 * s, 5 * s, 8 * s, 1, 0, 1, 1,1);
+	Draw_Glass(-11 * s, ground_y + 0.1, -4 * s, 15 * s, 2 * s, 8 * s, 1, 0, 1, 1,1);
 
 
 	glFlush();
