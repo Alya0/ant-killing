@@ -43,7 +43,7 @@ void Ant::draw(){
 }
 
 
-pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale){
+pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale, float speed){
 	if (sqrt(SQR((posX - lX)) + SQR((posZ - lZ))) > 4*scale){                         // ant is far away
 		return {posX, posZ};
 	}

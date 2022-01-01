@@ -16,7 +16,6 @@ private:
 	Model_3DS ant;
 	GLTexture ant_texture;
 	float posX, posY, posZ;
-	float speed = 0.01;
 	float rotation_angle = 180;
 
 public:
@@ -25,7 +24,7 @@ public:
 	void assignPosition(float x, float z);
 	void assignTexture(GLTexture texture); // adds texture to ant
 	void draw(); // draws the ant
-	pair <float, float> getAntNextStep(float lX, float lY, float lZ, float scale);
+	pair <float, float> getAntNextStep(float lX, float lY, float lZ, float scale, float speed);
 	float get_posX();
 	float get_posY();
 	float get_posZ();

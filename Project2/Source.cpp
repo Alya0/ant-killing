@@ -54,6 +54,7 @@ const int ground_y = MyComputer.ground_y;
 // ant declerations
 set<Ant*> ants;
 GLTexture ant_texture;
+float ant_speed = 0;
 const int ant_count = 7;
 int ants_left = ant_count;
 const float ant_pos[ant_count][4] = {
@@ -172,7 +173,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw ants
 	for (auto ant : ants){
-		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s);
+		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s, ant_speed);
 		if (checkMovement(newPos.first, newPos.second, s)){
 			ant->assignPosition(newPos.first, newPos.second);
 		}
@@ -239,6 +240,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
+					/*if (ants_left % 2 == 0)*/ ant_speed += 0.005;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;
