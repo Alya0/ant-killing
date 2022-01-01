@@ -217,16 +217,16 @@ public:
 		glTranslatef(0, -1.4 * s, 0);
 		glPopMatrix();
 
-		Draw_Building(x + (2.5*s), y, z - (6.5 * s), width - (5 * s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT , true , true , true , true , true , true);
-		Draw_Building(x + (2.5*s), y, z - (1 * s), width - (5 * s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (2.5*s), y, z - (6.5 * s), width - (5 * s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT , true , true , true , true , true , true);
+		Draw_Building(x + (2.5*s), y, z - (1 * s), width - (5 * s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		
-		Draw_Building(x + (1*s), y, z - (2.5 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
-		Draw_Building(x + (1 * s), y, z - (4 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
-		Draw_Building(x + (1 * s), y, z - (5.5 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (1*s), y, z - (2.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (1 * s), y, z - (4 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (1 * s), y, z - (5.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 
-		Draw_Building(x + (5.5 * s), y, z - (2.5 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
-		Draw_Building(x + (5.5 * s), y, z - (4 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
-		Draw_Building(x + (5.5 * s), y, z - (5.5 * s), width - (6.5*s), height - (2.41*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (5.5 * s), y, z - (2.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (5.5 * s), y, z - (4 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(x + (5.5 * s), y, z - (5.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 
 		// glass and door
 		/*Draw_Glass(x , y , z , width , height - (1.5*s) , length- (4.5*s) , false , true , false , false , false);
