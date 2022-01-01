@@ -127,7 +127,7 @@ public:
 	void Draw_CPU(float x, float y, float z, float width, float height, float length){
 		//main building
 		Draw_Building(x, y, z, width, height, length, CPU_DOWN, CPU_DOWN, CPU_SIDES, CPU_SIDES, CPU_FRONT, CPU_FRONT, true, true, false, true, true, true);
-		Draw_Building(x , y, z - 0.6, width - 1.2, height - 0.6, length - 1.2, CPU_INSIDE, CPU_DOWN, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, true, true, false, true, true, true);
+		Draw_Building(x , y+0.1, z - 0.6, width - 1.2, height - 0.6, length - 1.2, CPU_INSIDE, CPU_DOWN, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, true, true, false, true, true, true);
 		glDisable(GL_TEXTURE_2D);
 		glColor3ub(43, 60, 58);
 		glBegin(GL_QUADS);
