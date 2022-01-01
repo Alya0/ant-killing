@@ -55,9 +55,10 @@ const int ground_y = MyComputer.ground_y;
 set<Ant*> ants;
 GLTexture ant_texture;
 float ant_speed = 0;
-const int ant_count = 7;
+const int ant_count = 14;
 int ants_left = ant_count;
 const float ant_pos[ant_count][4] = {
+	{ 6, ground_y + 1, 9.25, 90 }, {7.5, ground_y + 1, 7, 90}, {9.5, ground_y + 1, 6.5, 180}, {8.25, ground_y + 1, 10.5, 0}, {9.5, ground_y+1, 10.75, 90}, {7.25, ground_y + 1, 11, 90}, {5.25, ground_y+1, 12.25, 0},
 	{ 8, ground_y + 1, -7, 180 }, { 7, ground_y + 1, -11.4, 270}, { 8.2, ground_y + 1, -3,0}, { 6.75, ground_y + 1, -1, 0}, { 10, ground_y + 1, -1,180}, { 9.6, ground_y + 1, -6, 180 }, {10.4, ground_y+1, -10,180}
 };
 
@@ -240,7 +241,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
-					/*if (ants_left % 2 == 0)*/ ant_speed += 0.005;
+					if ((ants_left) % 8 == 0) ant_speed += 0.005;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;
