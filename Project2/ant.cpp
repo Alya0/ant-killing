@@ -58,9 +58,8 @@ pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale
 	// make ant pos (0,0) and camera pos relevant to it
 	lX -= X;
 	lZ -= Z;
-
-	float addX = speed*lX;
-	float addZ = speed*lZ;
+	float addX = (speed)*lX;
+	float addZ = (speed)*lZ; 
 	 
 	float newX = posX + addX;
 	float newZ = posZ + addZ;
