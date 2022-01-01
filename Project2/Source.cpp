@@ -257,8 +257,13 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw glass
 
+	//RAM
 	Draw_Glass(6 * s, ground_y, 2 * s, 6 * s, 2 * s, 14 * s, 1 , 1, 1, 1, 0);
 
+	//CPU
+	Draw_Glass(4*s, ground_y, 13*s, 7*s, s , 3.5*s , false, true, false, false, false);
+	Draw_Glass(4*s, ground_y, 8.5*s , 7*s , s ,  3.5*s , false, true, false, false, false);
+	Draw_Glass(4*s , ground_y + (1 * s) , 13*s, 7*s , 1.5*s , 8*s, false, true, false, false, false);
 
 
 	glFlush();
