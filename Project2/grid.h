@@ -68,12 +68,12 @@ static void initialize_GRID(){
 	GRID[5][14] = true;
 
 	//SSD borders
-	for (int i = 50; i >= 18; i--){
-		//GRID[i][33] = true;
+	for (int i = 47; i >= 18; i--){
+		GRID[i][33] = true;
 		GRID[i][50] = true;
 	}
 	for (int i = 50; i >= 33; i--){
-		GRID[50][i] = true;
+		//GRID[50][i] = true;
 		GRID[18][i] = true;
 	}
 	//SSD inside borders (vertical)
@@ -88,7 +88,17 @@ static void initialize_GRID(){
 		GRID[20][i] = true;
 	}
 	//SSD inside borders (horizontal)
+	for (int i = 0; i < 4; i++){
+		GRID[44 + i][47] = true;
+		GRID[36 + i][47] = true;
+		GRID[28 + i][47] = true;
+		GRID[20 + i][47] = true;
+		GRID[44 + i][36] = true;
+		GRID[36 + i][36] = true;
+		GRID[28 + i][36] = true;
+		GRID[20 + i][36] = true;
 
+	}
 }
 
 static bool checkMovement(float x, float z, int scale){

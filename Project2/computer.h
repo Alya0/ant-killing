@@ -14,6 +14,7 @@ public:
 	int SKYBOX_UP, SKYBOX_SIDES, SKYBOX_DOWN;
 	int BLACK, RAM, GPU_FRONT, GPU_SIDE;
 	int CPU_FRONT, CPU_SIDES, CPU_DOWN, CPU_INSIDE, CPU_INSIDE_SIDE, CPU_CIRCUIT;
+	int box, green, grey, GPU, SSD, SSD1, SSD2, SSD3, SSD4, SSD6;
 														
 
 
@@ -238,7 +239,73 @@ public:
 		//MIRNA
 	}
 
-	void Draw_Storage(){
-		//ALAA
+	void drow_SSD(float x, float y, float z, float width, float height, float length, float i){
+
+		//  draw ship
+		Draw_Building(x * s, ground_y + y, z * s,
+			width * s, height * s, length* s,
+			SSD, BLACK, green, green, green, green, 1, 1, 1, 1, 1, 1);
+
+		//draw quad  1
+		Draw_Building((1.5 - i)* s, ground_y + 0.8, -5.95 * s,
+			1.15 * s, 0.09 * s, 0.9 * s,
+			SSD1, BLACK, grey, grey, grey, grey, 1, 1, 1, 1, 1, 1);
+
+
+		//draw quad  2
+		glPushMatrix();
+		Draw_Building((2.024 - i) * s, ground_y + 0.8, -7.35 * s,
+			0.69* s, 0.09 * s, 0.955 * s,
+			SSD2, grey, grey, grey, grey, grey, 1, 1, 1, 1, 1, 1);
+		glPopMatrix();
+
+		//draw quad  3
+		glPushMatrix();
+		Draw_Building((1.23 - i) * s, ground_y + 0.8, -8.54 * s,
+			1.63* s, 0.09 * s, 0.87 * s,
+			SSD3, grey, grey, grey, grey, grey, 1, 1, 1, 1, 1, 1);
+		glPopMatrix();
+
+		//draw quad  4
+		glPushMatrix();
+		Draw_Building((1.23 - i) * s, ground_y + 0.8, -9.62 * s,
+			1.63* s, 0.09 * s, 0.87 * s,
+			SSD3, grey, grey, grey, grey, grey, 1, 1, 1, 1, 1, 1);
+		glPopMatrix();
+
+		//draw quad  5
+		glPushMatrix();
+		Draw_Building((1.415 - i) * s, ground_y + 0.8, -5.4 * s,
+			0.18* s, 0.09 * s, 0.15 * s,
+			SSD3, grey, grey, grey, grey, grey, 1, 1, 1,1 ,1 ,1 );
+		glPopMatrix();
+
+		//draw quad  6
+		glPushMatrix();
+		Draw_Building((1.703 - i) * s, ground_y + 0.8, -5.35 * s,
+			0.18* s, 0.05 * s, 0.15 * s,
+			SSD4, SSD4, SSD4, SSD4, SSD4, SSD4, 1, 1, 1,1 ,1 ,1);
+		glPopMatrix();
+
+
+
 	}
+
+	void Draw_Storage(){
+		/*Draw_Building(-12 * s, ground_y +0.1 , -4 * s,
+		16 * s, 5 * s, 8 * s,
+		box, SKYBOX, box, box, box, box);*/
+
+		/////      DRAW  ssd    
+
+		drow_SSD(-11, 0.3, -5, 2, 0.09, 6, 12);
+
+
+		drow_SSD(-7, 0.3, -5, 2, 0.09, 6, 8);
+
+		drow_SSD(-3, 0.3, -5, 2, 0.09, 6, 4);
+
+		drow_SSD(1, 0.3, -5, 2, 0.09, 6, 0);
+	}
+
 };

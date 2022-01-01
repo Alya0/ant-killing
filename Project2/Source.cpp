@@ -117,6 +117,17 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.CPU_INSIDE_SIDE = LoadTexture("data/cpu_inside_side.bmp");
 	MyComputer.CPU_CIRCUIT = LoadTexture("data/cpu_circuit.bmp");
 
+	//STORAGE
+	MyComputer.SSD = LoadTexture("data/SSD.bmp");
+	MyComputer.SSD1 = LoadTexture("data/SSD1.bmp");
+	MyComputer.SSD2 = LoadTexture("data/SSD2.bmp");
+	MyComputer.SSD3 = LoadTexture("data/SSD3.bmp");
+	MyComputer.SSD4 = LoadTexture("data/SSD4.bmp");
+
+	MyComputer.green = LoadTexture("data/green.bmp");
+	MyComputer.grey = LoadTexture("data/grey.bmp");
+	MyComputer.box = LoadTexture("data/silver.bmp");
+
 	// DECLARE ANTS
 	ant_texture.LoadBMP("data/ant.bmp");
 
@@ -134,12 +145,12 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	initialize_GRID();
-	/*for (int j = n - 1; j >= 0; j--){
+	for (int j = n - 1; j >= 0; j--){
 	for (int i = n - 1; i >= 0; i--){
 	cout << GRID[i][j] << " ";
 	}
 	cout << endl;
-	}*/
+	}
 
 	return TRUE;										// Initialization Went OK
 
@@ -194,6 +205,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	MyComputer.Draw_CPU(4*s , ground_y, 13*s , 7*s , 2.5*s , 8*s); // make z = 13
 
+	MyComputer.Draw_Storage();
+
+
 	glDisable(GL_TEXTURE_2D);
 
 
@@ -242,7 +256,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
-					if ((ants_left) % 8 == 0) ant_speed += 0.005;
+					if ((ant_count - ants_left) % 7 == 0) ant_speed += 0.005;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;
@@ -262,12 +276,15 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	// draw glass
 
 	//RAM
-	Draw_Glass(6 * s, ground_y, 2 * s, 6 * s, 2 * s, 14 * s, 1 , 1, 1, 1, 0);
+	Draw_Glass(6 * s, ground_y + 0.1, 2 * s, 6 * s, 2 * s, 14 * s, 1 , 1, 1, 1, 0);
 
 	//CPU
 	Draw_Glass(4*s, ground_y, 13*s, 7*s, s , 3.5*s , false, true, false, false, false);
 	Draw_Glass(4*s, ground_y, 8.5*s , 7*s , s ,  3.5*s , false, true, false, false, false);
 	Draw_Glass(4*s , ground_y + (1 * s) , 13*s, 7*s , 1.5*s , 8*s, false, true, false, false, false);
+
+	//STORAGE
+	Draw_Glass(-11 * s, ground_y + 0.1, -4 * s, 16 * s, 5 * s, 8 * s, 1, 0, 1, 1,1);
 
 
 	glFlush();
