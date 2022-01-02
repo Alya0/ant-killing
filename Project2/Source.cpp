@@ -55,6 +55,7 @@ const int ground_y = MyComputer.ground_y;
 set<Ant*> ants;
 GLTexture ant_texture;
 float ant_speed = 0;
+const float ant_speed_increase = 0.0025;
 const int ant_count = 21;
 int ants_left = ant_count;
 const float ant_pos[ant_count][4] = {
@@ -65,7 +66,7 @@ const float ant_pos[ant_count][4] = {
 
 //bullet
 set<Bullet*> bullets;
-const float kill_range = 0.75;
+const float kill_range = 1;
 time_t shootBulletStartTime = time(0);
 
 
@@ -257,7 +258,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
-					if ((ant_count - ants_left) % 7 == 0) ant_speed += 0.005;
+					if ((ant_count - ants_left) % 7 == 0) ant_speed += ant_speed_increase;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;
@@ -285,7 +286,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	Draw_Glass(4*s , ground_y + (1 * s) , 13*s, 7*s , 1.5*s , 8*s, false, true, false, false, false);
 
 	//STORAGE
-	Draw_Glass(-11 * s, ground_y + 0.1, -4 * s, 15 * s, 2 * s, 8 * s, 1, 0, 1, 1,1);
+	Draw_Glass(-12 * s, ground_y + 0.1, -4 * s, 16 * s, 2 * s, 8 * s, 1, 1, 1, 1,0);
 
 
 	glFlush();
