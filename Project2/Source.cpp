@@ -4,6 +4,7 @@
 #include "grid.h"
 #include <time.h>
 
+
 using namespace std;
 
 #pragma comment(lib,"opengl32.lib")
@@ -75,7 +76,10 @@ bool firstPerson = true;
 time_t cameraSwitchStartTime = time(0);
 
 
-//sound
+//SOUND
+//Sound sound1;
+//Sound shootingSound;
+
 /*bool shootingSoundIsPlaying = false;
 time_t shootingSoundStartTime;
 
@@ -136,6 +140,29 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds"));
 	}
 
+	//fan
+	
+	MyComputer.center.LoadBMP("data/black.bmp");
+	MyComputer.blades.LoadBMP("data/gpu_sides.bmp");
+
+	MyComputer.fan.Load("data/computer_fan.3ds");
+	MyComputer.fan.pos.x = 0 * s;
+	MyComputer.fan.pos.y = 0 * s;
+	MyComputer.fan.pos.z = 0 * s;
+	MyComputer.fan.scale = 8 * s;
+
+	MyComputer.fan.Materials[0].tex = MyComputer.blades;//blade
+	MyComputer.fan.Materials[1].tex = MyComputer.center;//circle
+
+
+	//INIT initalie = INIT();
+	//initalie.InitOpenAL();
+
+
+	//sound1 = Sound("data/fan.wav");
+	//shootingSound = Sound("data/shot.wav");
+
+
 	// SOUND
 	//initialize.InitOpenAL(); // initialize sound from OpenAl
 	//shootingSound = Sound("data/shot.wav");
@@ -157,6 +184,14 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	return TRUE;										// Initialization Went OK
 
 }
+/*void sound(){
+	if (keys['O']){
+		sound1.Play();
+	}
+	if (keys['R']){
+		sound1.Stop();
+	}
+}*/
 
 int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
@@ -165,7 +200,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
-	// sound
+	// SOUND
+	//sound();
 	/*if (shootingSoundIsPlaying && time(0) - shootingSoundStartTime == 2) {
 	shootingSoundIsPlaying = false;
 	shootingSound.Stop();
@@ -209,6 +245,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	MyComputer.Draw_Storage();
 
+	MyComputer.Draw_Fan();
+	
 
 	glDisable(GL_TEXTURE_2D);
 
@@ -274,6 +312,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	for (auto bullet : toKillBullets){
 		bullets.erase(bullet);
 	}
+
+
+	
 
 	// draw glass
 
