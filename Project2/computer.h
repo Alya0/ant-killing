@@ -129,7 +129,7 @@ public:
 		glPushMatrix();
 		glTranslated(-11.4*s, 1.4*s, 4 * s);
 		glRotated(angle, 0, 0,1);
-		Draw_Fan();
+		Draw_Fan_GPU();
 		angle += 0.5;
 		glPopMatrix();
 		//cout << angle << "\n";
@@ -155,7 +155,7 @@ public:
 		Draw_Building(-4 * s + 0.1, ground_y + 0.1, 0 * s, 1 * s, 3 * s, 2 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
 
 		//glass
-		Draw_Glass(-10 * s, ground_y + 0.1, 4 * s +0.2, 7 * s, 3 * s, 6 * s +0.5, false, true, false, true, true);
+		Draw_Glass(-9.7 * s, ground_y + 0.1, 4 * s +0.2, 6.7 * s, 3 * s, 6 * s +0.5, false, true, false, true, true);
 	}
 
 	void Draw_CPU(float x, float y, float z, float width, float height, float length){
@@ -267,7 +267,16 @@ public:
 		Draw_Glass(x, y, z - (4.5*s), width, height - (1.5*s), length - (4.5*s), false, true, false, false, false);
 		Draw_Glass(x, y+(1*s), z, width, height - (1*s), length, false, true, false, false, false);*/
 	}
-
+	void Draw_Fan_GPU()
+	{
+		for (float i = 0.0; i < 360.0; i += 30.0)
+		{
+			glPushMatrix();
+			glRotated(i, 0, 0, 1);
+			Draw_Building(0 * s + 0.1, 0 + 0.1, 0 * s, 0.1 * s, 1 * s, 5.9 * s, GPU_FAN, GPU_FAN, GPU_FAN, GPU_FAN, GPU_FAN, GPU_FAN, true, true, true, true, true, true);
+			glPopMatrix();
+		}
+	}
 	void Draw_Fan(){
 		glPushMatrix();
 		glTranslated(0 * s, (12) * s, 0 * s);
