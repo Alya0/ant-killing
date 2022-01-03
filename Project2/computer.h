@@ -8,14 +8,15 @@ public:
 	//changing the scale means changing some values in ant.cpp for ant killing us or noticing us//
 	const float s = 10;   // scale
 	const float ground_y = -2;
+	float angle = 0.0;
 
 
 	// images
 	int SKYBOX_UP, SKYBOX_SIDES, SKYBOX_DOWN;
-	int BLACK, RAM, GPU_FRONT, GPU_SIDE;
+	int BLACK, RAM, GPU_FAN, GPU_SIDE;
 	int CPU_FRONT, CPU_SIDES, CPU_DOWN, CPU_INSIDE, CPU_INSIDE_SIDE, CPU_CIRCUIT;
 	int box, green, grey, GPU, SSD, SSD1, SSD2, SSD3, SSD4, SSD6;
-														
+
 
 
 	//functions
@@ -114,34 +115,63 @@ public:
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		//glDisable(GL_TEXTURE_2D);
 	}
-	
+
 	void Draw_RAM(float x, float y, float z){
 		for (int i = 0; i < 3; i++){
-			Draw_Building(x + (2*i*s), ground_y, z, 0.1*s, 1 * s, 12 * s, BLACK, BLACK, RAM, RAM, BLACK, BLACK , true , true , true , true , true , true);
+			Draw_Building(x + (2 * i*s), ground_y, z, 0.1*s, 1 * s, 12 * s, BLACK, BLACK, RAM, RAM, BLACK, BLACK, true, true, true, true, true, true);
 		}
 	}
 
-	void Draw_GPU(float x, float y, float z, float width, float height, float length){
-		Draw_Building(-13 * s + 0.1, ground_y + 0.1, 2 * s, 10 * s, 3 * s, 4 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_FRONT, GPU_FRONT , true , true , true , true , true , true);
+	void Draw_GPU(){
+		glPushMatrix();
+		glTranslated(-11.4*s, 1.4*s, 4 * s);
+		glRotated(angle, 0, 0,1);
+		Draw_Fan();
+		angle += 0.5;
+		glPopMatrix();
+		//cout << angle << "\n";
+		//Draw_Building(-13 * s + 0.1, ground_y + 0.1, 2 * s, 10 * s, 3 * s, 4 * s,BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, true, true, true, true, true, true);
+		//fan frame
+		//left
+		Draw_Building(-13 * s + 0.1, ground_y + 0.1, 4 * s, 0.3 * s, 3 * s, 6 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+		//up
+		Draw_Building(-13 * s + 0.1, ground_y + 0.1 + (3 * s), 4 * s, 10 * s, 0.3 * s, 6 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+		//right
+		Draw_Building(-10 * s + 0.1, ground_y + 0.1, 4 * s, 0.3 * s, 3 * s, 6 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+		//down
+		Draw_Building(-13 * s + 0.1, ground_y + 0.1, 4 * s, 3.2 * s, 0.3 * s, 6 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+
+		//
+		//1
+		Draw_Building(-8 * s + 0.1, ground_y + 0.1, 2 * s, 1 * s, 0.3 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		//2
+		Draw_Building(-6 * s + 0.1, ground_y + 0.1, 3 * s, 0.5 * s, 0.4 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		//3
+		Draw_Building(-4 * s + 0.1, ground_y + 0.1, 4 * s, 1 * s, 3 * s, 2 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+		//4
+		Draw_Building(-4 * s + 0.1, ground_y + 0.1, 0 * s, 1 * s, 3 * s, 2 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+
+		//glass
+		Draw_Glass(-10 * s, ground_y + 0.1, 4 * s +0.2, 7 * s, 3 * s, 6 * s +0.5, false, true, false, true, true);
 	}
 
 	void Draw_CPU(float x, float y, float z, float width, float height, float length){
 		//main building
 		Draw_Building(x, y, z, width, height, length, CPU_DOWN, CPU_DOWN, CPU_SIDES, CPU_SIDES, CPU_FRONT, CPU_FRONT, true, true, false, true, true, true);
-		Draw_Building(x , y+0.1, z - 0.6, width - 1.2, height - 0.6, length - 1.2, CPU_INSIDE, CPU_DOWN, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, true, true, false, true, true, true);
+		Draw_Building(x, y + 0.1, z - 0.6, width - 1.2, height - 0.6, length - 1.2, CPU_INSIDE, CPU_DOWN, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, CPU_INSIDE, true, true, false, true, true, true);
 		glDisable(GL_TEXTURE_2D);
 		glColor3ub(43, 60, 58);
 		glBegin(GL_QUADS);
-			glVertex3f(x , y, z);
-			glVertex3f(x , y+height , z);
-			glVertex3f(x , y+height , z-0.6);
-			glVertex3f(x , y , z-0.6);
-			glVertex3f(x, y, z-(8*s)+0.6);
-			glVertex3f(x, y + height, z - (8 * s) + 0.6);
-			glVertex3f(x, y + height, z - (8*s));
-			glVertex3f(x, y, z - (8*s));
+		glVertex3f(x, y, z);
+		glVertex3f(x, y + height, z);
+		glVertex3f(x, y + height, z - 0.6);
+		glVertex3f(x, y, z - 0.6);
+		glVertex3f(x, y, z - (8 * s) + 0.6);
+		glVertex3f(x, y + height, z - (8 * s) + 0.6);
+		glVertex3f(x, y + height, z - (8 * s));
+		glVertex3f(x, y, z - (8 * s));
 		glEnd();
-		glColor3f(1 , 1, 1);
+		glColor3f(1, 1, 1);
 		glEnable(GL_TEXTURE_2D);
 		//cpu
 		Draw_Building(x + (2.5*s), y, z - (3 * s), width - (5 * s), height - (2.3*s), length - (6 * s), CPU_FRONT, BLACK, CPU_INSIDE_SIDE, CPU_INSIDE_SIDE, CPU_INSIDE_SIDE, CPU_INSIDE_SIDE, true, true, true, true, true, true);
@@ -161,7 +191,7 @@ public:
 		glRotatef(90, 0, 1, 0);
 		drawSphere(2, 10, 10, 4);
 		for (int i = 0; i < 14; i++)
-			glTranslated(0, 0, -1) , drawSphere(2, 10, 10, 4);
+			glTranslated(0, 0, -1), drawSphere(2, 10, 10, 4);
 		glColor3d(1, 1, 1);
 		glPopMatrix();
 
@@ -189,13 +219,13 @@ public:
 		//circuit
 		glPushMatrix();
 		glTranslatef(x + (0.75 * s), y, z - (7.25 * s));
-		glRotatef(-90 , 1, 0 , 0);
+		glRotatef(-90, 1, 0, 0);
 		draw_cylender(2, height - (1.5*s), 43, 60, 58);
 		glRotatef(90, 1, 0, 0);
 		glTranslated(0, 1.4 * s, 0);
 		drawSphere(2, 10, 10, 1);
 		glTranslatef(0, -1.4 * s, 0);
-		glTranslatef(0 , 0 , 6.5*s);
+		glTranslatef(0, 0, 6.5*s);
 		glRotatef(-90, 1, 0, 0);
 		draw_cylender(2, height - (1.5*s), 43, 60, 58);
 		glRotatef(90, 1, 0, 0);
@@ -218,10 +248,10 @@ public:
 		glTranslatef(0, -1.4 * s, 0);
 		glPopMatrix();
 
-		Draw_Building(x + (2.5*s), y, z - (6.5 * s), width - (5 * s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT , true , true , true , true , true , true);
+		Draw_Building(x + (2.5*s), y, z - (6.5 * s), width - (5 * s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		Draw_Building(x + (2.5*s), y, z - (1 * s), width - (5 * s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
-		
-		Draw_Building(x + (1*s), y, z - (2.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+
+		Draw_Building(x + (1 * s), y, z - (2.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		Draw_Building(x + (1 * s), y, z - (4 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		Draw_Building(x + (1 * s), y, z - (5.5 * s), width - (6.5*s), height - (2.33*s), length - (7.5*s), CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 
@@ -236,7 +266,20 @@ public:
 	}
 
 	void Draw_Fan(){
-		//MIRNA
+		for (float i = 0.0; i < 360.0; i += 30.0)
+		{
+			//glPushMatrix();
+			//glTranslated(-11.4*s, 1.4*s, 4 * s);
+			glPushMatrix();
+			//glRotated(45, 1, 0, 0);
+			glRotated(i, 0, 0, 1);
+			//glRotatef(-45, 1.0, 0.0, 0.0);
+			Draw_Building(0 * s + 0.1, 0 + 0.1, 0 * s, 0.1 * s, 1 * s, 5.9 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
+			glPopMatrix();
+			//glPopMatrix();
+			//glPopMatrix();
+			//glPopMatrix();
+		}
 	}
 
 	void drow_SSD(float x, float y, float z, float width, float height, float length, float i){

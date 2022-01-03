@@ -98,7 +98,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	//MyCamera.Position.z = 12*s;
 
 	// skybox
-	MyComputer.SKYBOX_UP = LoadTexture("data/skybox/up.bmp", 255);
+	MyComputer.SKYBOX_UP = LoadTexture("data/skybox/up2.bmp", 255);
 	MyComputer.SKYBOX_DOWN = LoadTexture("data/skybox/floor.bmp", 255);
 	MyComputer.SKYBOX_SIDES = LoadTexture("data/skybox/sides.bmp", 255);
 
@@ -106,8 +106,8 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.RAM = LoadTexture("data/ram.bmp");
 
 	//GPU
-	MyComputer.GPU_FRONT = LoadTexture("data/gpu_front.bmp");
-	MyComputer.GPU_SIDE = LoadTexture("data/gpu_sides.bmp");
+	MyComputer.GPU_FAN = LoadTexture("data/gpu_sides.bmp");
+	MyComputer.GPU_SIDE = LoadTexture("data/up2.bmp");
 
 	//CPU
 	MyComputer.CPU_FRONT = LoadTexture("data/cpu_front.bmp");
@@ -202,7 +202,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	MyComputer.Draw_RAM((7) * s, ground_y, 1 * s);
 
-	MyComputer.Draw_GPU(-12 * s, -1, 2 * s, 9 * s, 5 * s, 4 * s);
+	MyComputer.Draw_GPU();
 
 	MyComputer.Draw_CPU(4*s , ground_y, 13*s , 7*s , 2.5*s , 8*s); // make z = 13
 
