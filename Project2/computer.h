@@ -6,7 +6,7 @@
 class Computer{
 public:
 	//changing the scale means changing some values in ant.cpp for ant killing us or noticing us//
-	const float s = 10;   // scale
+	const float s = 15;   // scale
 	const float ground_y = -2;
 	float angle = 0.0;
 

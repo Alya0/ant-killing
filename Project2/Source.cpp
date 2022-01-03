@@ -99,8 +99,8 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 
 	// set initial camera location
-	//MyCamera.Position.x = -1*12*s;
-	//MyCamera.Position.z = 12*s;
+	MyCamera.Position.x = 1*s;
+	MyCamera.Position.z = (12.4)*s;
 
 	// skybox
 	MyComputer.SKYBOX_UP = LoadTexture("data/skybox/up2.bmp", 255);
