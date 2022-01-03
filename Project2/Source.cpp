@@ -4,6 +4,7 @@
 #include "grid.h"
 #include <time.h>
 
+
 using namespace std;
 
 #pragma comment(lib,"opengl32.lib")
@@ -55,6 +56,7 @@ const int ground_y = MyComputer.ground_y;
 set<Ant*> ants;
 GLTexture ant_texture;
 float ant_speed = 0;
+const float ant_speed_increase = 0.0025;
 const int ant_count = 21;
 int ants_left = ant_count;
 const float ant_pos[ant_count][4] = {
@@ -65,7 +67,7 @@ const float ant_pos[ant_count][4] = {
 
 //bullet
 set<Bullet*> bullets;
-const float kill_range = 0.75;
+const float kill_range = 1;
 time_t shootBulletStartTime = time(0);
 
 
@@ -74,7 +76,10 @@ bool firstPerson = true;
 time_t cameraSwitchStartTime = time(0);
 
 
-//sound
+//SOUND
+//Sound sound1;
+//Sound shootingSound;
+
 /*bool shootingSoundIsPlaying = false;
 time_t shootingSoundStartTime;
 
@@ -135,6 +140,29 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds"));
 	}
 
+	//fan
+	
+	MyComputer.center.LoadBMP("data/black.bmp");
+	MyComputer.blades.LoadBMP("data/gpu_sides.bmp");
+
+	MyComputer.fan.Load("data/computer_fan.3ds");
+	MyComputer.fan.pos.x = 0 * s;
+	MyComputer.fan.pos.y = 0 * s;
+	MyComputer.fan.pos.z = 0 * s;
+	MyComputer.fan.scale = 8 * s;
+
+	MyComputer.fan.Materials[0].tex = MyComputer.blades;//blade
+	MyComputer.fan.Materials[1].tex = MyComputer.center;//circle
+
+
+	//INIT initalie = INIT();
+	//initalie.InitOpenAL();
+
+
+	//sound1 = Sound("data/fan.wav");
+	//shootingSound = Sound("data/shot.wav");
+
+
 	// SOUND
 	//initialize.InitOpenAL(); // initialize sound from OpenAl
 	//shootingSound = Sound("data/shot.wav");
@@ -156,6 +184,14 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	return TRUE;										// Initialization Went OK
 
 }
+/*void sound(){
+	if (keys['O']){
+		sound1.Play();
+	}
+	if (keys['R']){
+		sound1.Stop();
+	}
+}*/
 
 int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
@@ -164,7 +200,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
-	// sound
+	// SOUND
+	//sound();
 	/*if (shootingSoundIsPlaying && time(0) - shootingSoundStartTime == 2) {
 	shootingSoundIsPlaying = false;
 	shootingSound.Stop();
@@ -208,6 +245,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	MyComputer.Draw_Storage();
 
+	MyComputer.Draw_Fan();
+	
 
 	glDisable(GL_TEXTURE_2D);
 
@@ -257,7 +296,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
-					if ((ant_count - ants_left) % 7 == 0) ant_speed += 0.005;
+					if ((ant_count - ants_left) % 7 == 0) ant_speed += ant_speed_increase;
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;
@@ -274,6 +313,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		bullets.erase(bullet);
 	}
 
+
+	
+
 	// draw glass
 
 	//RAM
@@ -285,7 +327,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	Draw_Glass(4*s , ground_y + (1 * s) , 13*s, 7*s , 1.5*s , 8*s, false, true, false, false, false);
 
 	//STORAGE
-	Draw_Glass(-11 * s, ground_y + 0.1, -4 * s, 15 * s, 2 * s, 8 * s, 1, 0, 1, 1,1);
+	Draw_Glass(-12 * s, ground_y + 0.1, -4 * s, 16 * s, 2 * s, 8 * s, 1, 1, 1, 1,0);
 
 
 	glFlush();

@@ -49,7 +49,7 @@ static void initialize_GRID(){
 		}
 	}
 	// cpu inside
-	for (int i = 12; i >= 8; i--){
+	for (int i = 12; i >= 9; i--){
 		GRID[i][13] = true;
 		GRID[i][9] = true;
 		GRID[i][6] = true;
@@ -70,7 +70,7 @@ static void initialize_GRID(){
 
 	//SSD borders
 	for (int i = 47; i >= 18; i--){
-		GRID[i][33] = true;
+		//GRID[i][33] = true;
 		GRID[i][50] = true;
 	}
 	for (int i = 50; i >= 33; i--){
@@ -145,11 +145,11 @@ static void initialize_Bullet_GRID(){
 	}
 	//SSD borders
 	for (int i = 47; i >= 18; i--){
-		Bullet_GRID[i][33] = true;
+		//Bullet_GRID[i][33] = true;
 		Bullet_GRID[i][50] = true;
 	}
 	for (int i = 50; i >= 33; i--){
-		//GRID[50][i] = true;
+		GRID[50][i] = true;
 		Bullet_GRID[18][i] = true;
 	}
 }

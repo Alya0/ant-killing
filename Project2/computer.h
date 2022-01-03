@@ -16,7 +16,10 @@ public:
 	int BLACK, RAM, GPU_FAN, GPU_SIDE;
 	int CPU_FRONT, CPU_SIDES, CPU_DOWN, CPU_INSIDE, CPU_INSIDE_SIDE, CPU_CIRCUIT;
 	int box, green, grey, GPU, SSD, SSD1, SSD2, SSD3, SSD4, SSD6;
-
+	
+	//fan related variables
+	Model_3DS fan;
+	GLTexture blades, center;
 
 
 	//functions
@@ -266,20 +269,14 @@ public:
 	}
 
 	void Draw_Fan(){
-		for (float i = 0.0; i < 360.0; i += 30.0)
-		{
-			//glPushMatrix();
-			//glTranslated(-11.4*s, 1.4*s, 4 * s);
-			glPushMatrix();
-			//glRotated(45, 1, 0, 0);
-			glRotated(i, 0, 0, 1);
-			//glRotatef(-45, 1.0, 0.0, 0.0);
-			Draw_Building(0 * s + 0.1, 0 + 0.1, 0 * s, 0.1 * s, 1 * s, 5.9 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
-			glPopMatrix();
-			//glPopMatrix();
-			//glPopMatrix();
-			//glPopMatrix();
-		}
+		glPushMatrix();
+		glTranslated(0 * s, (12) * s, 0 * s);
+		//glRotated(90, -9 * s, 8 * s, 6 * s);
+		glRotated(90, 0, 0, 1);
+		glRotated(180, 1, 0, 0);
+		fan.rot.x += 4;
+		fan.Draw();
+		glPopMatrix();
 	}
 
 	void drow_SSD(float x, float y, float z, float width, float height, float length, float i){
