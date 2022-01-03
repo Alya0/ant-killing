@@ -146,16 +146,14 @@ public:
 
 		//
 		//1
-		Draw_Building(-8 * s + 0.1, ground_y + 0.1, 2 * s, 1 * s, 0.3 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(-9 * s + 0.1, ground_y + 0.1, 2 * s, 1 * s, 0.2 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		//2
-		Draw_Building(-6 * s + 0.1, ground_y + 0.1, 3 * s, 0.5 * s, 0.4 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
+		Draw_Building(-6 * s + 0.1, ground_y + 0.1, 3 * s, 0.5 * s, 0.2 *s, 2 * s, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, CPU_CIRCUIT, true, true, true, true, true, true);
 		//3
 		Draw_Building(-4 * s + 0.1, ground_y + 0.1, 4 * s, 1 * s, 3 * s, 2 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
 		//4
 		Draw_Building(-4 * s + 0.1, ground_y + 0.1, 0 * s, 1 * s, 3 * s, 2 * s, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, GPU_SIDE, true, true, true, true, true, true);
 
-		//glass
-		Draw_Glass(-9.7 * s, ground_y + 0.1, 4 * s +0.2, 6.7 * s, 3 * s, 6 * s +0.5, false, true, false, true, true);
 	}
 
 	void Draw_CPU(float x, float y, float z, float width, float height, float length){

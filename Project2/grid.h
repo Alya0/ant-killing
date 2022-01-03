@@ -98,7 +98,28 @@ static void initialize_GRID(){
 		GRID[36 + i][36] = true;
 		GRID[28 + i][36] = true;
 		GRID[20 + i][36] = true;
+	}
 
+	//GPU borders
+	for (int i = 51; i >= 32; i--){
+		GRID[i][30] = true;
+		GRID[i][17] = true;
+	}
+	for (int i = 29; i >= 18; i--){
+		GRID[46][i] = true;
+		if (i >= 26 || i <= 21){
+			GRID[32][i] = true;
+			GRID[33][i] = true;
+		}
+	}
+
+	//GPU inside
+	for (int i = 23; i >= 20; i--){
+		GRID[37][i] = true;
+	}
+	for (int i = 25; i >= 22; i--){
+		GRID[42][i] = true;
+		GRID[43][i] = true;
 	}
 }
 
@@ -151,6 +172,19 @@ static void initialize_Bullet_GRID(){
 	for (int i = 50; i >= 33; i--){
 		GRID[50][i] = true;
 		Bullet_GRID[18][i] = true;
+	}
+
+	//GPU borders
+	for (int i = 51; i >= 32; i--){
+		GRID[i][30] = true;
+		GRID[i][17] = true;
+	}
+	for (int i = 29; i >= 18; i--){
+		GRID[46][i] = true;
+		if (i >= 26 || i <= 21){
+			GRID[32][i] = true;
+			GRID[33][i] = true;
+		}
 	}
 }
 

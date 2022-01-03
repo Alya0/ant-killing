@@ -329,6 +329,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	//STORAGE
 	Draw_Glass(-12 * s, ground_y + 0.1, -4 * s, 16 * s, 2 * s, 8 * s, 1, 1, 1, 1,0);
 
+	//GPU
+	Draw_Glass(-9.7 * s, ground_y + 0.1, 4 * s + 0.2, 6.7 * s, 3 * s, 6 * s + 0.5, false, true, false, true, true);
 
 	glFlush();
 
