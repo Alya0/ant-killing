@@ -121,6 +121,36 @@ static void initialize_GRID(){
 		GRID[42][i] = true;
 		GRID[43][i] = true;
 	}
+
+
+	//HDD borders
+	for (int i = 51; i >= 32; i--){
+		GRID[i][12] = true; // horizontal
+	}
+	for (int i = 11; i >= 0; i--){
+		GRID[31][i] = true; // vertical
+	}
+
+	//HDD inside
+	//circle
+	for (int i = 7; i >= 2; i--){
+		GRID[43][i] = true; 
+		GRID[34][i] = true;
+	}
+	for (int i = 41; i >= 36; i--){
+		GRID[i][9] = true;
+		GRID[i][0] = true;
+	}
+	GRID[35][8] = true; GRID[35][1] = true; GRID[42][8] = true; GRID[42][1] = true;
+	//other block
+	for (int i = 9; i >= 4; i--){
+		GRID[49][i] = true;
+		GRID[48][i] = true;
+		if (i == 9 || i == 8){
+			GRID[47][i] = true;
+			GRID[46][i] = true;
+		}
+	}
 }
 
 static void initialize_Bullet_GRID(){
@@ -170,22 +200,52 @@ static void initialize_Bullet_GRID(){
 		Bullet_GRID[i][50] = true;
 	}
 	for (int i = 50; i >= 33; i--){
-		GRID[50][i] = true;
+		Bullet_GRID[50][i] = true;
 		Bullet_GRID[18][i] = true;
 	}
 
 	//GPU borders
 	for (int i = 51; i >= 32; i--){
-		GRID[i][30] = true;
-		GRID[i][17] = true;
+		Bullet_GRID[i][30] = true;
+		Bullet_GRID[i][17] = true;
 	}
 	for (int i = 29; i >= 18; i--){
-		GRID[46][i] = true;
+		Bullet_GRID[46][i] = true;
 		if (i >= 26 || i <= 21){
-			GRID[32][i] = true;
-			GRID[33][i] = true;
+			Bullet_GRID[32][i] = true;
+			Bullet_GRID[33][i] = true;
 		}
 	}
+
+	//HDD borders
+	for (int i = 51; i >= 32; i--){
+		Bullet_GRID[i][12] = true; // horizontal
+	}
+	for (int i = 11; i >= 0; i--){
+		Bullet_GRID[31][i] = true; // vertical
+	}
+
+	//HDD inside
+	//circle
+	for (int i = 7; i >= 2; i--){
+		Bullet_GRID[43][i] = true;
+		Bullet_GRID[34][i] = true;
+	}
+	for (int i = 41; i >= 36; i--){
+		Bullet_GRID[i][9] = true;
+		Bullet_GRID[i][0] = true;
+	}
+	Bullet_GRID[35][8] = true; Bullet_GRID[35][1] = true; Bullet_GRID[42][8] = true; Bullet_GRID[42][1] = true;
+	//other block
+	for (int i = 9; i >= 4; i--){
+		Bullet_GRID[49][i] = true;
+		Bullet_GRID[48][i] = true;
+		if (i == 9 || i == 8){
+			Bullet_GRID[47][i] = true;
+			Bullet_GRID[46][i] = true;
+		}
+	}
+
 }
 
 static bool checkMovement(float x, float z, float scale){

@@ -95,12 +95,12 @@ Camera::Camera()
 	RotatedX = RotatedY = RotatedZ = 0.0;
 
 	initialize_GRID();
-	/*for (int j = n - 1; j >= 0; j--){
+	for (int j = n - 1; j >= 0; j--){
 		for (int i = n - 1; i >= 0; i--){
 			cout << GRID[i][j] << " ";
 		}
 		cout << endl;
-	}*/
+	}
 }
 
 void Camera::RotateX(GLfloat Angle)

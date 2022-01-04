@@ -57,12 +57,15 @@ set<Ant*> ants;
 GLTexture ant_texture;
 float ant_speed = 0;
 const float ant_speed_increase = 0.0025;
-const int ant_count = 21;
+const int ant_count = 35;
 int ants_left = ant_count;
+float ant_y = ground_y + 1;
 const float ant_pos[ant_count][4] = {
-	{ 6, ground_y + 1, 9.25, 90 }, {7.5, ground_y + 1, 7, 90}, {9.5, ground_y + 1, 6.5, 180}, {8.25, ground_y + 1, 10.5, 0}, {9.5, ground_y+1, 10.75, 90}, {7.25, ground_y + 1, 11, 90}, {5.25, ground_y+1, 12.25, 0}, //CPU
-	{ 8, ground_y + 1, -7, 180 }, { 7, ground_y + 1, -11.4, 270}, { 8.2, ground_y + 1, -3,0}, { 6.75, ground_y + 1, -1, 0}, { 10, ground_y + 1, -1,180}, { 9.6, ground_y + 1, -6, 180 }, {10.4, ground_y+1, -10,180},//RAM
-	{ 3.5, ground_y + 1, -6, 180 }, { 0.5, ground_y + 1, -10.25, 180 }, { -4, ground_y + 1, -7, 180 }, { -5.5, ground_y + 1, -11.5, 270 }, { -7.5, ground_y + 1, -4.5, 180 }, { -8.5, ground_y + 1, -9, 180 }, { -11, ground_y + 1 , -11.5, 270} //SSD
+	{ 6, ant_y, 9.25, 90 }, { 7.5, ant_y, 7, 90 }, { 9.5, ant_y, 6.5, 180 }, { 8.25, ant_y, 10.5, 0 }, { 9.5, ant_y, 10.75, 90 }, { 7.25, ant_y, 11, 90 }, { 5.25, ant_y, 12.25, 0 }, //CPU
+	{ 8, ant_y, -7, 180 }, { 7, ant_y, -11.4, 270 }, { 8.2, ant_y, -3, 0 }, { 6.75, ant_y, -1, 0 }, { 10, ant_y, -1, 180 }, { 9.6, ant_y, -6, 180 }, { 10.4, ant_y, -10, 180 },//RAM
+	{ 3.5, ant_y, -6, 180 }, { 0.5, ant_y, -10.25, 180 }, { -4, ant_y, -7, 180 }, { -5.5, ant_y, -11.5, 270 }, { -7.5, ant_y, -4.5, 180 }, { -8.5, ant_y, -9, 180 }, { -11, ant_y, -11.5, 270 }, //SSD
+	{ -4, ant_y, 1, 270 }, { -5, ant_y, 3, 0 }, { -6, ant_y, -1.5, 180 }, { -7, ant_y, 0.25, 270 }, { -7.5, ant_y, 2, 0 }, { -9, ant_y, 3, 270 }, { -9.5, ant_y , -1, 270}, //GPU
+	{ -3.25, ant_y, 12, 0 }, { -4, ant_y, 8, 180 }, { -9, ant_y, 8, 270 }, { -10, ant_y, 10, 315 }, { -10, ant_y, 12, 315 }, { -11, ant_y, 12, 270 }, { -11.5, ant_y , 7.5, 270}, //HDD
 };
 
 //bullet

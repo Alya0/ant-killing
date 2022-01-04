@@ -10,7 +10,7 @@
 class Bullet
 {
 public:
-	float step = 4, speed;
+	float step = 6, speed;
 	float lookX, lookY, lookZ;
 	float posX, posY, posZ;
 	float X, Y, Z;
