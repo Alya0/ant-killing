@@ -59,7 +59,7 @@ pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale
 		{
 			health -= ant_strength;
 			immune = true;
-			//cout << health << endl;
+			cout << health << endl;
 		}
 	}
 

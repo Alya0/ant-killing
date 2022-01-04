@@ -33,11 +33,11 @@ void Bullet::setCurrentCoordinates(){
 	step += speed;
 }
 
-void Bullet::draw_X(){
+void Bullet::draw_X(float s){
 	glDisable(GL_TEXTURE_2D);
-	float length = 0.05;
+	float length = 0.003*s;
 	float x = 0, y = 0, z = -3;
-	glLineWidth(1.5);
+	glLineWidth(0.1*s);
 	glBegin(GL_LINES);
 	glColor3f(0.8, 0, 0);
 	glVertex3f(x, y + length, z);

@@ -204,8 +204,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	//SetCursorPos(0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	Bullet::draw_X(); 
-
+	Bullet::draw_X(s); 
 	//immmuntiy
 	if (immune)
 	{
@@ -228,8 +227,10 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		lasthealth = health;
 		start = false;
 	}
+	string string_output = "Health: " + to_string(health);
+	const char *char_output = &string_output[0];
+	output(0.35, 0.35, -1, char_output);
 
-	//
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 

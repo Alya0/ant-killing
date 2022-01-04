@@ -24,7 +24,7 @@ public:
 	float get_posX();
 	float get_posY();
 	float get_posZ();
-	static void draw_X();
+	static void draw_X(float s);
 private:
 	void drawSphere(float r, int lats, int longs);
 };

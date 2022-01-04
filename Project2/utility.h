@@ -16,6 +16,7 @@
 #include <set>
 #include<vector>
 
+
 void drawUnitCube() {
 
 	glBegin(GL_QUADS);
@@ -193,6 +194,7 @@ void Draw_Building(float x, float y, float z, float width, float height, float l
 }
 void output(float x, float y, float z, const char *string)
 {
+	glDisable(GL_TEXTURE_2D);
 	glColor3f(1, 1, 1);
 	glRasterPos3f(x, y, z);
 	int len, i;
