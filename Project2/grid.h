@@ -74,7 +74,7 @@ static void initialize_GRID(){
 		GRID[i][50] = true;
 	}
 	for (int i = 50; i >= 33; i--){
-		//GRID[50][i] = true;
+		GRID[50][i] = true;
 		GRID[18][i] = true;
 	}
 	//SSD inside borders (vertical)

@@ -174,12 +174,12 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 
 	initialize_GRID();
 	initialize_Bullet_GRID();
-	for (int j = n - 1; j >= 0; j--){
+	/*for (int j = n - 1; j >= 0; j--){
 	for (int i = n - 1; i >= 0; i--){
 	cout << GRID[i][j] << " ";
 	}
 	cout << endl;
-	}
+	}*/
 
 	return TRUE;										// Initialization Went OK
 
