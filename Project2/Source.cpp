@@ -228,8 +228,13 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		start = false;
 	}
 	string string_output = "Health: " + to_string(health);
+	float output_x = 0.35, output_y = 0.35, output_z = -1;
+	if (health <= 0){
+		string_output = "GAME OVER";
+		output_x = -0.005; output_y = 0; output_z = -0.2;
+	}
 	const char *char_output = &string_output[0];
-	output(0.35, 0.35, -1, char_output);
+	output(output_x, output_y, output_z, char_output);
 
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
