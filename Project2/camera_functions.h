@@ -17,11 +17,11 @@ Camera MyCamera;
 double lX, lY, lZ = (-1 * r);
 double angle_h = -1.57, max = (pi * 2);*/
 
-void ThirdPersonCamera(float lookX, float lookY, float lookZ){
+/*void ThirdPersonCamera(float lookX, float lookY, float lookZ){
 	MyCamera.Position.y = 2.5;
 	glColor3b(1, 1, 1);
 	drawMyCube(lookX, lookY, lookZ, 1, 1, 1, 0, 0, 0);
-}
+}*/
 
 
 void FirstPersonCamera(bool* keys, float speed, int scale){

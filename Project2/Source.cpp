@@ -227,14 +227,20 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		lasthealth = health;
 		start = false;
 	}
+	//output some stuff on the screen
 	string string_output = "Health: " + to_string(health);
 	float output_x = 0.35, output_y = 0.35, output_z = -1;
-	if (health <= 0){
-		string_output = "GAME OVER";
-		output_x = -0.005; output_y = 0; output_z = -0.2;
+	const char *char_output_1 = &string_output[0];
+	output(0.35, 0.35, -1, char_output_1);
+	string_output = "Ants left: " + to_string(ants_left);
+	const char *char_output_2 = &string_output[0];
+	output(-0.45, 0.35, -1, char_output_2);
+	if (ants_left == 0){
+		string_output = "!!WELL DONE!!";
+		const char *char_output_3 = &string_output[0];
+		output(-0.025, 0, -0.2, char_output_3);
 	}
-	const char *char_output = &string_output[0];
-	output(output_x, output_y, output_z, char_output);
+	//end of output 
 
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
@@ -334,7 +340,10 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 					){
 					ants_left--;
 					cout << "ANTS LEFT: " << ants_left << endl;
-					if ((ant_count - ants_left) % 7 == 0) ant_speed += ant_speed_increase;
+					if ((ant_count - ants_left) % 7 == 0) {
+						ant_speed += ant_speed_increase;
+						cout << "AREA CLEARED FROM ANTS\n";
+					}
 					toKillAnts.push_back(ant);
 					toKillBullets.push_back(bullet);
 					break;

@@ -8,6 +8,7 @@ public:
 	//changing the scale means changing some values in ant.cpp for ant killing us or noticing us//
 	const float s = 15;   // scale
 	const float ground_y = -2;
+	//angle to rotate GPU fan
 	float angle = 0.0;
 
 
