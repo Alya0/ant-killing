@@ -148,7 +148,6 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	}
 
 	//fan
-	
 	MyComputer.center.LoadBMP("data/black.bmp");
 	MyComputer.blades.LoadBMP("data/gpu_sides.bmp");
 
@@ -249,7 +248,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookZ = MyCamera.Position.z + lZ;
 	float lookY = MyCamera.Position.y + lY;*/
 
-	FirstPersonCamera(keys, 0.6, s);
+	FirstPersonCamera(keys, 0.5, s);
 	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras with time so it changes only once ebery 0.5 second
 		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
