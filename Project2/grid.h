@@ -31,11 +31,11 @@ static void initialize_GRID(){
 	}
 	// ram Glass borders
 	for (int i = 22; i <= 49; i++){
-		GRID[13][i] = true;
-		GRID[2][i] = true;
+		GRID[14][i] = true;
+		GRID[1][i] = true;
 	}
 	for (int i = 13; i >= 2; i--){
-		GRID[i][49] = true;
+		GRID[i][50] = true;
 	}
 
 	//cpu borders
@@ -177,11 +177,11 @@ static void initialize_Bullet_GRID(){
 	}
 	// ram Glass borders
 	for (int i = 22; i <= 49; i++){
-		Bullet_GRID[13][i] = true;
-		Bullet_GRID[2][i] = true;
+		Bullet_GRID[14][i] = true;
+		Bullet_GRID[1][i] = true;
 	}
 	for (int i = 13; i >= 2; i--){
-		Bullet_GRID[i][49] = true;
+		Bullet_GRID[i][50] = true;
 	}
 
 	//cpu borders
