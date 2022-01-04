@@ -37,7 +37,7 @@ void Bullet::draw_X(){
 	glDisable(GL_TEXTURE_2D);
 	float length = 0.05;
 	float x = 0, y = 0, z = -3;
-	glLineWidth(3);
+	glLineWidth(1.5);
 	glBegin(GL_LINES);
 	glColor3f(0.8, 0, 0);
 	glVertex3f(x, y + length, z);

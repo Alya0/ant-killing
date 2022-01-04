@@ -271,7 +271,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		shootingSoundIsPlaying = true;
 		shootingSoundStartTime = time(0);*/
 
-		bullets.insert(new Bullet(posX, posY, posZ, MyCamera.View.x, MyCamera.View.y, MyCamera.View.z, 0.2, 1));
+		bullets.insert(new Bullet(MyCamera.Position.x, MyCamera.Position.y, MyCamera.Position.z, MyCamera.View.x, MyCamera.View.y, MyCamera.View.z, 0.2, 1));
 	}
 
 	// draw bullets

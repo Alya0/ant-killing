@@ -19,12 +19,12 @@ public:
 public:
 	Bullet();
 	Bullet(float pX, float pY, float pZ, float lX, float lY, float lZ, float r, float step_speed);
-	static void draw_X();
 	void setCurrentCoordinates();
 	void draw(); // draw bullet 
 	float get_posX();
 	float get_posY();
 	float get_posZ();
+	static void draw_X();
 private:
 	void drawSphere(float r, int lats, int longs);
 };

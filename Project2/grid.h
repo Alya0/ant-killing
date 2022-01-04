@@ -127,10 +127,6 @@ static void initialize_GRID(){
 	for (int i = 51; i >= 32; i--){
 		GRID[i][12] = true; // horizontal
 	}
-	for (int i = 11; i >= 0; i--){
-		GRID[31][i] = true; // vertical
-	}
-
 	//HDD inside
 	//circle
 	for (int i = 7; i >= 2; i--){
@@ -151,6 +147,18 @@ static void initialize_GRID(){
 			GRID[46][i] = true;
 		}
 	}
+}
+
+
+static bool checkMovement(float x, float z, float scale){
+	int X = (((x * 2) / scale) - 26) * -1;
+	int Z = ((z * (-1*2)) / scale) + 26;
+	//cout << X << " " << Z << " " << GRID[X][Z] << endl;
+	if (GRID[X][Z] == 1){
+		//cout << "cant proceed!"<<endl;
+		return false;
+	}
+	return true;
 }
 
 static void initialize_Bullet_GRID(){
@@ -221,9 +229,6 @@ static void initialize_Bullet_GRID(){
 	for (int i = 51; i >= 32; i--){
 		Bullet_GRID[i][12] = true; // horizontal
 	}
-	for (int i = 11; i >= 0; i--){
-		Bullet_GRID[31][i] = true; // vertical
-	}
 
 	//HDD inside
 	//circle
@@ -247,18 +252,6 @@ static void initialize_Bullet_GRID(){
 	}
 
 }
-
-static bool checkMovement(float x, float z, float scale){
-	int X = (((x * 2) / scale) - 26) * -1;
-	int Z = ((z * (-1*2)) / scale) + 26;
-	//cout << X << " " << Z << " " << GRID[X][Z] << endl;
-	if (GRID[X][Z] == 1){
-		//cout << "cant proceed!"<<endl;
-		return false;
-	}
-	return true;
-}
-
 static bool checkBulletMovement(float x, float z, float scale){
 	int X = (((x * 2) / scale) - 26) * -1;
 	int Z = ((z * (-1 * 2)) / scale) + 26;
