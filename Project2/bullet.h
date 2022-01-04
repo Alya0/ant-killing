@@ -10,7 +10,7 @@
 class Bullet
 {
 public:
-	float step = 1, speed;
+	float step = 4, speed;
 	float lookX, lookY, lookZ;
 	float posX, posY, posZ;
 	float X, Y, Z;
@@ -19,7 +19,7 @@ public:
 public:
 	Bullet();
 	Bullet(float pX, float pY, float pZ, float lX, float lY, float lZ, float r, float step_speed);
-	static void draw_X(float x, float y, float z);
+	static void draw_X();
 	void setCurrentCoordinates();
 	void draw(); // draw bullet 
 	float get_posX();

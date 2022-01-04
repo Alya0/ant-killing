@@ -197,6 +197,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+	Bullet::draw_X();
+
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
@@ -211,9 +213,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float posX = MyCamera.Position.x;
 	float posY = MyCamera.Position.y;
 	float posZ = MyCamera.Position.z;
-	float lookX = MyCamera.Position.x + lX;
+	/*float lookX = MyCamera.Position.x + lX;
 	float lookZ = MyCamera.Position.z + lZ;
-	float lookY = MyCamera.Position.y + lY;
+	float lookY = MyCamera.Position.y + lY;*/
 
 	FirstPersonCamera(keys, 0.6, s);
 	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras with time so it changes only once ebery 0.5 second
@@ -230,7 +232,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		}
 		ant->draw();
 	}
-
+	
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
 	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
@@ -252,13 +254,12 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 
 	// third person
-	if (!firstPerson){
+	/*if (!firstPerson){
 		ThirdPersonCamera(lookX, lookY, lookZ);
-	}
+	}*/
 
 	// handle bullet
 
-	Bullet::draw_X(lookX, lookY, lookZ);
 	
 	if (keys[' '] && (time(0) - shootBulletStartTime >= 0.5)){
 		shootBulletStartTime = time(0);
@@ -266,7 +267,8 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		/*shootingSound.Play();
 		shootingSoundIsPlaying = true;
 		shootingSoundStartTime = time(0);*/
-		bullets.insert(new Bullet(posX, posY, posZ, lX, lY, lZ, 0.2, 0.25));
+
+		bullets.insert(new Bullet(posX, posY, posZ, MyCamera.View.x, MyCamera.View.y, MyCamera.View.z, 0.2, 1));
 	}
 
 	// draw bullets
