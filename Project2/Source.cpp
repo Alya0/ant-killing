@@ -143,7 +143,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	ant_texture.LoadBMP("data/ant.bmp");
 	for (int i = 0; i < ant_count; i++){
 		int strength = ant.set_Strength(ant_pos[i][0], ant_pos[i][2]);
-		cout << strength << endl;
+		//cout << strength << endl;
 		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds",strength));
 	}
 
