@@ -17,10 +17,11 @@ private:
 	GLTexture ant_texture;
 	float posX, posY, posZ;
 	float rotation_angle = 180;
+	int ant_strength;
 
 public:
 	Ant();
-	Ant(GLfloat x, GLfloat y, GLfloat z,float rotate, GLTexture texture, char* path);
+	Ant(GLfloat x, GLfloat y, GLfloat z,float rotate, GLTexture texture, char* path,int strength);
 	void assignPosition(float x, float z);
 	void assignTexture(GLTexture texture); // adds texture to ant
 	void draw(); // draws the ant
@@ -28,6 +29,7 @@ public:
 	float get_posX();
 	float get_posY();
 	float get_posZ();
+	int set_Strength(float posX, float posZ);
 };
 
 

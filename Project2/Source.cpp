@@ -3,7 +3,7 @@
 #include "camera_functions.h"
 #include "grid.h"
 #include <time.h>
-
+#include "ant.h"
 
 using namespace std;
 
@@ -48,7 +48,6 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 // ===============================================================================================================
 //computer
 Computer MyComputer;
-
 const float s = MyComputer.s;
 const int ground_y = MyComputer.ground_y;
 
@@ -74,7 +73,7 @@ const float kill_range = 1;
 time_t shootBulletStartTime = time(0);
 
 //health and immunity
-bool immune = false;
+bool immune = false,start = true;
 int health = 100,lasthealth=0;
 int immunetime = 0;
 //camera related
@@ -140,10 +139,12 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.box = LoadTexture("data/silver.bmp");
 
 	// DECLARE ANTS
+	Ant ant;
 	ant_texture.LoadBMP("data/ant.bmp");
-
 	for (int i = 0; i < ant_count; i++){
-		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds"));
+		int strength = ant.set_Strength(ant_pos[i][0], ant_pos[i][2]);
+		cout << strength << endl;
+		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds",strength));
 	}
 
 	//fan
@@ -204,7 +205,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	//SetCursorPos(0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	Bullet::draw_X();
+	Bullet::draw_X(); 
+
+	//immmuntiy
 	if (immune)
 	{
 		immunetime++;
@@ -214,11 +217,20 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 		immunetime = 0;
 		immune = false;
 	}
-	if (health != lasthealth)
+	//health printing
+	if (health != lasthealth && !start)
+	{
+		cout << "Health: " << health << "  Health Lost: "<< lasthealth-health<<endl;
+		lasthealth = health;
+	}
+	else if (start)
 	{
 		cout << "Health: " << health << endl;
 		lasthealth = health;
+		start = false;
 	}
+
+	//
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
