@@ -16,7 +16,7 @@ private:
 	Model_3DS ant;
 	GLTexture ant_texture;
 	float posX, posY, posZ;
-	float rotation_angle = 180;
+	float rotation_angle ;
 	int ant_strength;
 
 public:
