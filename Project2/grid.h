@@ -28,6 +28,7 @@ static void initialize_GRID(){
 		GRID[11][i] = true;
 		GRID[7][i] = true;
 		GRID[3][i] = true;
+
 	}
 	// ram Glass borders
 	for (int i = 22; i <= 49; i++){

@@ -3,7 +3,7 @@
 #include "camera_functions.h"
 #include "grid.h"
 #include <time.h>
-
+#include "ant.h"
 
 using namespace std;
 
@@ -48,7 +48,6 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 // ===============================================================================================================
 //computer
 Computer MyComputer;
-
 const float s = MyComputer.s;
 const int ground_y = MyComputer.ground_y;
 
@@ -73,7 +72,10 @@ set<Bullet*> bullets;
 const float kill_range = 1;
 time_t shootBulletStartTime = time(0);
 
-
+//health and immunity
+bool immune = false,start = true;
+int health = 100,lasthealth=0;
+int immunetime = 0;
 //camera related
 bool firstPerson = true;
 time_t cameraSwitchStartTime = time(0);
@@ -137,14 +139,15 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	MyComputer.box = LoadTexture("data/silver.bmp");
 
 	// DECLARE ANTS
+	Ant ant;
 	ant_texture.LoadBMP("data/ant.bmp");
-
 	for (int i = 0; i < ant_count; i++){
-		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds"));
+		int strength = ant.set_Strength(ant_pos[i][0], ant_pos[i][2]);
+		//cout << strength << endl;
+		ants.insert(new Ant(ant_pos[i][0] * s, ant_pos[i][1], ant_pos[i][2] * s,ant_pos[i][3] ,ant_texture, "data/ant.3ds",strength));
 	}
 
 	//fan
-	
 	MyComputer.center.LoadBMP("data/black.bmp");
 	MyComputer.blades.LoadBMP("data/gpu_sides.bmp");
 
@@ -198,10 +201,35 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 
 int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
+	//SetCursorPos(0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	Bullet::draw_X();
+	Bullet::draw_X(); 
 
+	//immmuntiy
+	if (immune)
+	{
+		immunetime++;
+	}
+	if (immunetime == 150)
+	{
+		immunetime = 0;
+		immune = false;
+	}
+	//health printing
+	if (health != lasthealth && !start)
+	{
+		cout << "Health: " << health << "  Health Lost: "<< lasthealth-health<<endl;
+		lasthealth = health;
+	}
+	else if (start)
+	{
+		cout << "Health: " << health << endl;
+		lasthealth = health;
+		start = false;
+	}
+
+	//
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
@@ -220,7 +248,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	float lookZ = MyCamera.Position.z + lZ;
 	float lookY = MyCamera.Position.y + lY;*/
 
-	FirstPersonCamera(keys, 0.6, s);
+	FirstPersonCamera(keys, 0.5, s);
 	if (keys['G'] && (time(0) - cameraSwitchStartTime >= 0.5)){ // switch between two cameras with time so it changes only once ebery 0.5 second
 		cameraSwitchStartTime = time(0);
 		firstPerson = !firstPerson;
@@ -229,13 +257,12 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw ants
 	for (auto ant : ants){
-		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s, ant_speed);
+		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s, ant_speed,health,immune);
 		if (checkMovement(newPos.first, newPos.second, s)){
 			ant->assignPosition(newPos.first, newPos.second);
 		}
 		ant->draw();
 	}
-	
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
 	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
