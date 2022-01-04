@@ -43,13 +43,22 @@ void Ant::draw(){
 }
 
 
-pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale, float speed){
+pair<float, float> Ant::getAntNextStep(float lX, float lY, float lZ, float scale, float speed, int &health, bool &immune){
 	if (sqrt(SQR((posX - lX)) + SQR((posZ - lZ))) > 4*scale){                         // ant is far away
 		return {posX, posZ};
 	}
-	if (abs(lX - posX) <= 2 && abs(lZ - posZ) <= 0.2*scale){                             // ant reached my pos
-		std::cout << "GAME OVER!" ;
-		exit(0);
+	if (abs(lX - posX) <= 2 && abs(lZ - posZ) <= 0.2*scale){    // ant reached my pos
+		if(health <= 0)
+		{
+			std::cout << "GAME OVER!";
+			exit(0);
+		}
+		else if (!immune)
+		{
+			health -= 15;
+			immune = true;
+			cout << health << endl;
+		}
 	}
 
 	float X = posX;

@@ -73,7 +73,10 @@ set<Bullet*> bullets;
 const float kill_range = 1;
 time_t shootBulletStartTime = time(0);
 
-
+//health and immunity
+bool immune = false;
+int health = 100,lasthealth=0;
+int immunetime = 0;
 //camera related
 bool firstPerson = true;
 time_t cameraSwitchStartTime = time(0);
@@ -198,10 +201,24 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 
 int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
+	//SetCursorPos(0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	Bullet::draw_X();
-
+	if (immune)
+	{
+		immunetime++;
+	}
+	if (immunetime == 150)
+	{
+		immunetime = 0;
+		immune = false;
+	}
+	if (health != lasthealth)
+	{
+		cout << "Health: " << health << endl;
+		lasthealth = health;
+	}
 	MyCamera.Render();
 	MyCamera.Position.y = 1;
 
@@ -229,13 +246,12 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 
 	// draw ants
 	for (auto ant : ants){
-		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s, ant_speed);
+		pair<float, float> newPos = ant->getAntNextStep(posX, posY ,posZ,s, ant_speed,health,immune);
 		if (checkMovement(newPos.first, newPos.second, s)){
 			ant->assignPosition(newPos.first, newPos.second);
 		}
 		ant->draw();
 	}
-	
 	glEnable(GL_TEXTURE_2D);
 	//draw everything with texture here
 	MyComputer.Draw_Skybox(0, 0, 0, 26 * s, 26 * s, 26 * s);
